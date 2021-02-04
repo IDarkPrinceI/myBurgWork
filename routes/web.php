@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/', 'MainController@index')->name('index');
+Route::get('/menu', 'ProductController@menu')->name('menu');
+Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
+Route::get('/menu/{category}/{slug}', 'ProductController@single')->name('menu.single');
+
+Route::get('/login', 'UserController@login')->name('login');
+Route::get('/register', 'UserController@create')->name('register.create');
+Route::post('/register', 'UserController@store')->name('register.store');
+
+
+Route::group(['prefix' => 'far', 'namespace' => 'Far'], function () {
+    Route::get('/', 'MainController@index')->name('far.index');
+    Route::resource('/categories', 'CategoryController');
+    Route::get('/products/search', 'ProductController@search')->name('product.search');
+    Route::resource('/products', 'ProductController');
+});
+
+
+
+
+
