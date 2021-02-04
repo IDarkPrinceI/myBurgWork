@@ -17,60 +17,59 @@
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
-                                    <span><i class="fa fa-user-circle"></i></span>
-                                    <input class="form-control valid @error('login') is-invalid @enderror"
+                                    <input class="form-control"
                                            name="login"
                                            id="login"
                                            type="text"
                                            placeholder="Введите логин *"
                                            value="{{ old('login') }}"
-                                    style="font-size: medium; color: #f4f5f6" >
+                                    style="font-size: medium; color: #f4f5f6; @error('login') border-color: #ee0d0d!important; @enderror" >
                                 </div>
                             </div>
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
-                                    <input class="form-control valid @error('email') is-invalid @enderror"
+                                    <input class="form-control"
                                            name="email"
                                            id="email"
                                            type="text"
                                            placeholder="Введите e-mail *"
                                            value="{{ old('email') }}"
-                                           style="font-size: medium; color: #f4f5f6">
+                                           style="font-size: medium; color: #f4f5f6; @error('email') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
-                                    <input class="form-control valid @error('password') is-invalid @enderror"
+                                    <input class="form-control"
                                            name="password"
                                            id="password"
-                                           type="text"
+                                           type="password"
                                            placeholder="Введите пароль *"
-                                           style="font-size: medium; color: #f4f5f6">
+                                           style="font-size: medium; color: #f4f5f6; @error('password') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
-                                    <input class="form-control valid"
-                                           name=""
+                                    <input class="form-control"
+                                           name="password_confirmation"
                                            id="password_confirmation"
-                                           type="password_confirmation"
+                                           type="password"
                                            placeholder="Подтвердите пароль *"
-                                           style="font-size: medium; color: #f4f5f6">
+                                           style="font-size: medium; color: #f4f5f6; @error('password_confirmation') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
-                                    <input class="form-control valid @error('name') is-invalid @enderror"
+                                    <input class="form-control"
                                            name="name"
                                            id="name"
                                            type="text"
                                            placeholder="Введите имя *"
                                            value="{{ old('name') }}"
-                                           style="font-size: medium; color: #f4f5f6">
+                                           style="font-size: medium; color: #f4f5f6; @error('name') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
 
@@ -82,7 +81,7 @@
                                            type="text"
                                            placeholder="Телефон"
                                            value="{{ old('phone') }}"
-                                           style="font-size: medium; color: #f4f5f6">
+                                           style="font-size: medium; color: #f4f5f6; @error('phone') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
 

@@ -24,11 +24,11 @@ class UserRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'min:4|required|unique:users',
+            'login' => 'alpha_num|min:4|required|unique:users',
             'email' => 'email|required|unique:users',
-            'password' => 'required|confirmed',
-            'name' => 'required',
-            'phone' => 'integer|nullable',
+            'password' => 'alpha_num|required|confirmed',
+            'name' => 'required|alpha',
+            'phone' => 'nullable|digits:11',
         ];
     }
 
@@ -36,14 +36,18 @@ class UserRegistrationRequest extends FormRequest
     {
         return [
             'login.required' => 'Логин - обязательная графа',
+            'login.alpha_num' => 'Логин может состоять только из букв и цифр',
             'login.unique' => 'Такой логин уже используется',
             'login.min' => 'Логин должен быть не короче 4 символов',
             'email.required' => 'E-mail - обязательная графа',
             'email.email' => 'E-mail должен соответствовать электронному адресу',
             'email.unique' => 'Такой e-mail уже используется',
             'password.required' => 'Пароль - обязательная графа',
+            'password.alpha_num' => 'Пароль может состоять только из букв и цифр',
+            'password.confirmed' => 'Поля "Пароль" и "Подтверждение пароля" не совпадают',
             'name.required' => 'Имя - обязательная графа',
-            'phone.integer' => 'Поле "телефон" должно быть числом',
+            'name.alpha' => 'Имя может состоять только из букв',
+            'phone.digits' => 'Поле "телефон" должно быть числом образца "89876543210"',
         ];
     }
 }

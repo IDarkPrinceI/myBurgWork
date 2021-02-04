@@ -1,22 +1,15 @@
+//Кнопка минус
 $("#singleMinus").on('click', function () {
         result('minus')
     }
 )
-
+//Кнопка плюс
 $("#singlePlus").on('click', function () {
         result('plus')
     }
 )
 
-// document.querySelector("#singleMinus").addEventListener('click', function () {
-//     result('minus')
-//     }
-// )
-// document.querySelector("#singlePlus").addEventListener('click', function () {
-//     result('plus')
-//     }
-// )
-
+//Функция изменения количества твара, добавляемого в корзину
  function result(typeButton) {
     const result = document.querySelector("#singleResult")
     let i = parseInt(result.textContent)
@@ -28,3 +21,14 @@ $("#singlePlus").on('click', function () {
     }
     result.textContent = i
 }
+
+//Задержка до исчезновения флеш сообщения об успехе
+window.setTimeout(function () {
+    $("#sessionSuccess").fadeOut()
+}, 3500)
+
+//Крестик для закрытия окна Alert
+$("#buttonCloseAlert").on('click', function() {
+    $("#alertWindow").hide();
+});
+
