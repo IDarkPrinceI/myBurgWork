@@ -19,11 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'MainController@index')->name('index');
 Route::get('/menu', 'ProductController@menu')->name('menu');
 Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
-Route::get('/menu/{category}/{slug}', 'ProductController@single')->name('menu.single');
 
-Route::get('/login', 'UserController@login')->name('login');
+Route::get('/menu/{category}/{slug}', 'ProductController@single')->middleware('user')->name('menu.single');
+
 Route::get('/register', 'UserController@create')->name('register.create');
 Route::post('/register', 'UserController@store')->name('register.store');
+Route::get('/login', 'UserController@login')->name('login');
+Route::post('/login', 'UserController@authenticate')->name('login.authenticate');
+Route::get('/logout', 'UserController@logout')->name('logout');
 
 
 Route::group(['prefix' => 'far', 'namespace' => 'Far'], function () {

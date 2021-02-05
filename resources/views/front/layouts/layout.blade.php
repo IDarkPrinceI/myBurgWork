@@ -63,6 +63,8 @@
                                     <li><a href="{{ route('login') }}">Вход</a></li>
 
                                     <li><a href="{{ route('register.create') }}">Регистрация</a></li>
+
+                                    <li><a href="{{ route('logout') }}">Выйти</a></li>
                                     <li>
                                         <a href="#">
                                             <i class="fa fa-facebook"></i>

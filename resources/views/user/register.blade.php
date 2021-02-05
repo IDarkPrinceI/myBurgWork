@@ -15,17 +15,17 @@
                         @csrf
                         <div class="row" style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: #f4f5f6" >
 
-                            <div class="col-sm-8" >
-                                <div class="form-group">
-                                    <input class="form-control"
-                                           name="login"
-                                           id="login"
-                                           type="text"
-                                           placeholder="Введите логин *"
-                                           value="{{ old('login') }}"
-                                    style="font-size: medium; color: #f4f5f6; @error('login') border-color: #ee0d0d!important; @enderror" >
-                                </div>
-                            </div>
+{{--                            <div class="col-sm-8" >--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <input class="form-control"--}}
+{{--                                           name="login"--}}
+{{--                                           id="login"--}}
+{{--                                           type="text"--}}
+{{--                                           placeholder="Введите логин *"--}}
+{{--                                           value="{{ old('login') }}"--}}
+{{--                                    style="font-size: medium; color: #f4f5f6; @error('login') border-color: #ee0d0d!important; @enderror" >--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <div class="col-sm-8" >
                                 <div class="form-group">
@@ -67,7 +67,7 @@
                                            name="name"
                                            id="name"
                                            type="text"
-                                           placeholder="Введите имя *"
+                                           placeholder="Введите имя"
                                            value="{{ old('name') }}"
                                            style="font-size: medium; color: #f4f5f6; @error('name') border-color: #ee0d0d!important; @enderror">
                                 </div>

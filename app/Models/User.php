@@ -47,15 +47,23 @@ class User extends Authenticatable
     {
         $user = new User();
 
-        $user->login = $request->login;
+//        $user->login = $request->login;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
 //        $user->auth_key = $request->_token;
-//        $user->save();
+        $user->save();
 
         return $user;
+    }
+
+    public static function getRole($user)
+    {
+        if ($user && $user->role === 'user') {
+            return true;
+        }
+        return false;
     }
 }
