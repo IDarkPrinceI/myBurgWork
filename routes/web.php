@@ -20,6 +20,7 @@ Route::get('/', 'MainController@index')->name('index');
 Route::get('/menu', 'ProductController@menu')->name('menu');
 Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
 
+//Route::get('/menu/{category}/{slug}', 'ProductController@single')->middleware('test')->name('menu.single');
 Route::get('/menu/{category}/{slug}', 'ProductController@single')->middleware('user')->name('menu.single');
 
 Route::get('/register', 'UserController@create')->name('register.create');
@@ -28,8 +29,8 @@ Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@authenticate')->name('login.authenticate');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
-
-Route::group(['prefix' => 'far', 'namespace' => 'Far'], function () {
+//far
+Route::group(['prefix' => 'far', 'namespace' => 'Far', 'middleware' => 'far'], function () {
     Route::get('/', 'MainController@index')->name('far.index');
     Route::resource('/categories', 'CategoryController');
     Route::get('/products/search', 'ProductController@search')->name('product.search');

@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
@@ -43,27 +45,38 @@ class User extends Authenticatable
     ];
 
 
+    public function token()
+    {
+//        return $this->hasOne(Token::class, 'id', 'user_id');
+        return $this->hasOne(Token::class, 'user_id', 'id');
+    }
+
+
     public static function registration($request)
     {
         $user = new User();
 
-//        $user->login = $request->login;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+//        $user->auth_key
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
-//        $user->auth_key = $request->_token;
         $user->save();
 
         return $user;
     }
 
-    public static function getRole($user)
+
+    public static function getRole()
     {
-        if ($user && $user->role === 'user') {
-            return true;
-        }
+        return Auth::user()->role ?? null;
+    }
+
+
+    public static function authentication($credentials, $request, $remember)
+    {
+
         return false;
     }
 }

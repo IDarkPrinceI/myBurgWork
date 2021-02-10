@@ -38,10 +38,14 @@
                                 </div>
                             </div>
                             <div class="switch-wrap d-flex justify-content-between">
-                                <p  style="color: #f4f5f6">Запомнить меня </p>
+                                <p style="color: #f4f5f6">Запомнить меня </p>
                                 <div class="primary-checkbox" style="margin-left: 10px">
-                                    <input type="checkbox" id="primary-checkbox" checked="">
-                                    <label for="primary-checkbox"></label>
+                                    <input type="checkbox"
+                                           name="rememberMe"
+                                           id="rememberMe"
+                                           checked
+                                           >
+                                    <label for="rememberMe"></label>
                                 </div>
                             </div>
 

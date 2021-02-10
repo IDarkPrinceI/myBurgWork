@@ -32,3 +32,13 @@ $("#buttonCloseAlert").on('click', function() {
     $("#alertWindow").hide();
 });
 
+//CheckBox для rememberMe
+$("#rememberMe").on('change', function () {
+    if ($(this).prop('checked') === true) {
+        $(this).attr('checked', true)
+    } else {
+        $(this).attr('checked', false)
+    }
+})
+
+
