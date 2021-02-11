@@ -26,10 +26,11 @@ class UserAccessMiddleware
 
         $user = User::getRole();
         $userId = Auth::id();
+
         $dbToken = Token::query()
             ->select('token', 'expires_on')
             ->where('user_id', $userId)
-            ->firstOrFail();
+            ->first();
 
         if (Auth::check()
             && ($user === 'user' || $user === 'admin')
