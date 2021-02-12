@@ -75,15 +75,25 @@ class User extends Authenticatable
     }
 
 
-    public static function authentication($request, $user = null, $remember = null)
+    public static function setRememberMeCache()
     {
         $randomByteCache = bin2hex(random_bytes(24));
         if (Cache::has('rememberMe')) {
             Cache::forget('rememberMe');
         }
-        Cache::add('rememberMe',  $randomByteCache, 1800);
+        Cache::add('rememberMe', $randomByteCache, 1800);
+        return $randomByteCache;
+    }
 
+
+    public static function authentication($request, $user = null)
+    {
+        $remember = \request()->get('rememberMe') ?? null;
+        $randomByteCache = User::setRememberMeCache();
         $rememberMe = Hash::make($randomByteCache);
+        $time = $remember ? Carbon::now()->addMonth() : Carbon::now()->addMinutes(30);
+        $newToken = false;
+
         $userId = User::query()
             ->select('id')
             ->where('email', $request['email'])
@@ -94,31 +104,71 @@ class User extends Authenticatable
             ->where('user_id', $user->id ?? $userId->id)
             ->first();
 
+        if (User::writeToken($rememberMe, $userId, $newToken, $time, $token)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static function getIp()
+    {
+        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+            if (array_key_exists($key, $_SERVER) === true) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip); // just to be safe
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                        return $ip;
+                    }
+                }
+            }
+        }
+        return request()->ip(); // it will return server ip when no client ip found
+    }
+
+
+    public static function writeToken($rememberMe, $userId, $newToken, $time, $token = null)
+    {
         if (!$token) {
             $token = new Token();
             $newToken = true;
             $token->user_id = $userId->id;
         }
         $token->token = $rememberMe;
-        $token->expires_on = Carbon::now()->addMinutes(30);
-        $token->ip = '121';
+        $token->expires_on = $time;
+        $token->ip = User::getIp();
 
         if ($newToken = true) {
             $token->save();
+        } else {
+            $token->update();
         }
-        $token->update();
         return true;
-        //            $request->session()->regenerate();
-//            $request->session()->regenerateToken();
-//            $request->session()->invalidate();
     }
 
 
-//    public static function redirectRole()
-//    {
-//        if (User::getRole() === 'admin') {
-//            return redirect(route('far.index'));
-//        }
-//        return redirect(route('index'));
-//    }
+    public static function authenticationMiddleware()
+    {
+        $cacheKey= Cache::get('rememberMe');
+
+        $user = User::getRole();
+        $userId = Auth::id();
+
+        $dbToken = Token::query()
+            ->select('token', 'expires_on', 'ip')
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($cacheKey !== null && $user !==0 && $userId !== null && $dbToken !== null) {
+            if (Auth::check()
+                && ($user === 'user' || $user === 'admin')
+                && Hash::check($cacheKey,  $dbToken->token)
+                && (Carbon::now() < $dbToken->expires_on)
+                && (User::getIp() === $dbToken->ip)) {
+                return true;
+            }
+            return false;
+        }
+    }
 }

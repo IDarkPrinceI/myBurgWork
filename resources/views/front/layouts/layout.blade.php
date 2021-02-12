@@ -12,6 +12,10 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/front/img/favicon.png') }}">
     <!-- Place favicon.ico in the root directory -->
 
+    {{--    YandexMap--}}
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=8a3ecadb-e4ca-48eb-9d4e-cbc2af213efb&amp;lang=ru-RU"></script>
+    {{--    YandexMap--}}
+
     <!-- CSS here -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/front.css') }}">
@@ -60,11 +64,9 @@
                         <div class="book_room" style="padding: 50px">
                             <div class="socail_links">
                                 <ul>
-                                    <li><a href="{{ route('login') }}">Вход</a></li>
 
-                                    <li><a href="{{ route('register.create') }}">Регистрация</a></li>
+                                    @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
 
-                                    <li><a href="{{ route('logout') }}">Выйти</a></li>
                                     <li>
                                         <a href="#">
                                             <i class="fa fa-facebook"></i>
@@ -146,6 +148,7 @@
 <!-- JS here -->
 <script src={{ asset('assets/front/js/front.js') }}></script>
 <script src={{ asset('assets/front/js/mainFront.js') }}></script>
+
 
 
 </body>

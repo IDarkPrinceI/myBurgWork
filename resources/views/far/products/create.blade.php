@@ -18,7 +18,7 @@
                                    value="{{ old('title') }}">
                         </div>
 
-                        <div  class="categoryInput form-group" style="display: none;">
+                        <div class="categoryInput form-group" style="display: none;">
                             <label for="category_id">Категория <span class="text-red">*</span></label>
                             <select
                                 name="category_id"
@@ -69,6 +69,8 @@
                                        @if( old('is_new') )
                                        value="1"
                                        checked
+                                       @else
+                                       value="0"
                                        @endif
                                        >
                                 <label class="custom-control-label" for="is_new">Новинка</label>
@@ -83,8 +85,11 @@
                                        @if( old('is_hit') )
                                        value="1"
                                        checked
+                                       @else
+                                       value="0"
                                        @endif
-                                       class="custom-control-input">
+                                       class="custom-control-input"
+                                >
                                 <label class="custom-control-label" for="is_hit">Хит</label>
                             </div>
                         </div>

@@ -16,7 +16,6 @@ class ProductController extends Controller
             ->selectRaw('COUNT(category_id) as countCategory')
             ->groupBy('category_id')
             ->get();
-//        dd($categories);
         return view('front.products.menu', compact('categories'));
     }
 
@@ -28,7 +27,6 @@ class ProductController extends Controller
             ->select('products.*', 'categories.title as category_title', 'categories.slug as category_slug')
             ->where('categories.slug', '=', $slug)
             ->paginate(8);
-//        dd($products);
 
         return view('front.products.show', compact('products'));
     }
@@ -38,8 +36,7 @@ class ProductController extends Controller
         $product = Product::query()
             ->with('category')
             ->where('slug', '=', $slug)
-            ->firstOrFail();
-//        dd($product);
+            ->first();
         return view('front.products.single', compact('product'));
     }
 

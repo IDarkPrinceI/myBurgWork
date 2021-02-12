@@ -175,12 +175,12 @@ $(".content-wrapper").on('click', function () {
             ]
         }
         if ($("#description").val()) {
-            pack = [
+            pack = pack.concat([
                 $(".contentInput"),
                 $(".keywordsInput"),
                 $(".imgInput"),
                 $(".buttonAdd")
-            ]
+            ])
         }
     } else if (location === "/far/categories/create") {
         if ($("#title").val()) {
@@ -197,13 +197,15 @@ $(".content-wrapper").on('click', function () {
 
 // Функция для появления объектов
 function fadeIn(pack) {
-    pack.forEach((key) => {
+    // pack.forEach(key => {
+    pack.forEach(function(key) {
         key.fadeIn()
         if (key.hasClass("buttonAdd")) {
             key.prop("disabled", false)
         }
     })
 }
+
 
 
 

@@ -125,7 +125,7 @@ class Product extends Model
         }
         $products = $query
             ->paginate(5);
-        session(['search' => $baseSearchClear]);
+//        session(['search' => $baseSearchClear]); // нужен ли он ?
         if ($products[0] === null) {
             $products = "По вашему запросу '$baseSearchClear' ничего не найдено";
         }

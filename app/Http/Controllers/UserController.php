@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRegistrationRequest;
-use App\Models\Token;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -24,12 +19,13 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
-//        $remember = \request()->get('rememberMe') ?? false;
         if (Auth::attempt($credentials) && User::authentication($request)) {
 
             if (User::getRole() === 'admin') {
+                session(['role' => 'far']);
                 return redirect()->route('far.index')->with('success', 'Вы успешно вошли на сайт!');
             }
+            session(['role' => 'user']);
             return redirect()->route('index')->with('success', 'Вы успешно вошли на сайт!');
         }
         return back()->withErrors([
@@ -50,7 +46,7 @@ class UserController extends Controller
         Auth::login($user);
         if (User::authentication($request, $user)) {
             return redirect()->route('index')->with('success', 'Вы успешно зарегистрировались!');
-        };
+        }
 
         return redirect()->route('index');
     }
@@ -59,6 +55,7 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        session()->forget('role');
         $request->session()->regenerateToken();
         $request->session()->invalidate();
 

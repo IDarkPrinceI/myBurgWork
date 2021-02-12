@@ -139,7 +139,7 @@
     @include('far.layouts.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper ">
+    <div class="content-wrapper">
         <!-- Content Header (Page header) -->
     @include('far.layouts.breadcrumbs')
 
@@ -165,6 +165,8 @@
 
 <script src="{{ asset('assets/far/js/far.js') }}"></script>
 <script src="{{ asset('assets/far/js/main.js') }}"></script>
+
+
 
 </body>
 </html>

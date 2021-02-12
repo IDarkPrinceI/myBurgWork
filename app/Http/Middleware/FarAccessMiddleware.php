@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class FarAccessMiddleware
 {
@@ -18,9 +18,13 @@ class FarAccessMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && User::getRole() === 'admin') {
+
+        if(User::authenticationMiddleware()) {
             return $next($request);
         }
+        session()->forget('role');
+
         abort(404);
     }
+
 }

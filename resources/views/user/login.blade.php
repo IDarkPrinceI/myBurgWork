@@ -43,7 +43,7 @@
                                     <input type="checkbox"
                                            name="rememberMe"
                                            id="rememberMe"
-                                           checked
+{{--                                           checked--}}
                                            >
                                     <label for="rememberMe"></label>
                                 </div>

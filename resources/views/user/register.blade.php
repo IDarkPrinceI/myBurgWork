@@ -15,18 +15,6 @@
                         @csrf
                         <div class="row" style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: #f4f5f6" >
 
-{{--                            <div class="col-sm-8" >--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <input class="form-control"--}}
-{{--                                           name="login"--}}
-{{--                                           id="login"--}}
-{{--                                           type="text"--}}
-{{--                                           placeholder="Введите логин *"--}}
-{{--                                           value="{{ old('login') }}"--}}
-{{--                                    style="font-size: medium; color: #f4f5f6; @error('login') border-color: #ee0d0d!important; @enderror" >--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
                             <div class="col-sm-8" >
                                 <div class="form-group">
                                     <input class="form-control"
@@ -85,6 +73,21 @@
                                 </div>
                             </div>
 
+                            <div class="col-sm-8" >
+                                <div class="form-group">
+                                    <textarea class="form-control valid @error('address') is-invalid @enderror"
+                                           name="address"
+                                           id="address"
+                                           rows="3"
+                                           type="text"
+                                           placeholder="Адрес"
+                                           style="font-size: medium; color: #f4f5f6; @error('phone') border-color: #ee0d0d!important; @enderror">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div style="width: 100%; height: 400px; padding: 0.5em" id="map"></div>
+
                             <div class="form-group mt-3">
                                 <button type="submit" class="button button-contactForm boxed-btn">Зарегистрироваться</button>
                             </div>
@@ -109,6 +112,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 @endsection
