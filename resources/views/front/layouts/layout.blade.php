@@ -65,23 +65,22 @@
                             <div class="socail_links">
                                 <ul>
 
-                                    @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
 
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
+                                        <a id="cartCheck" href="#">
+                                            <i class="fa fa-cart-arrow-down" aria-hidden="true">
+{{--                                                <span class="cart-qty" id="cart-qty"><?= $_SESSION['cart.qty'] ?? '0' ?> </span><span> шт. на сумму:</span>--}}
+                                                <span class="cart-qty" id="cart-qty">{{ session('cart.qty') ?? '0'}} </span><span> шт. на сумму:</span>
+{{--                                                <span class="cart-sum" id="cart-sum"><?= $_SESSION['cart.sum'] ?? '0' ?> </span><span> руб.</span></i>--}}
+                                                <span class="cart-sum" id="cart-sum">{{ session('cart_sum') ?? '0' }} </span><span> руб.</span></i>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
+                                    @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
+
+                                    {{--                                        <button onclick="getCart()" id="my_cart" type="button"  data-toggle="modal" data-target="#modal-cart">--}}
+{{--                                        </button>--}}
                                 </ul>
                             </div>
-{{--                            <div class="book_btn d-none d-xl-block">--}}
-{{--                                <a class="#" href="#">+12 345 678 9012</a>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="col-12">
@@ -97,6 +96,32 @@
 @include('front.layouts.alert')
 
 @yield('content')
+
+    <!-- modalCart -->
+    <div class="modal" id="modal-cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Моя корзина</h4>
+
+                    <button type="button" id="cartClose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                @include('front.cart.modal-cart')
+
+                </div>
+                <div class="modal-footer">
+{{--                    <button onclick="clearCart()" type="button" class="btn btn-danger pull-left" id="my_clean">Очистить корзину</button>--}}
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+                    <a href="#" class="btn btn-success">Оформить заказ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modalCart -->
+
+
 
 <footer class="footer">
     <div class="footer_top">

@@ -19,7 +19,7 @@ class FarAccessMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        if(User::authenticationMiddleware()) {
+        if(User::authenticationMiddleware('admin')) {
             return $next($request);
         }
         session()->forget('role');

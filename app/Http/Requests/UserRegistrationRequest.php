@@ -29,6 +29,8 @@ class UserRegistrationRequest extends FormRequest
             'password' => 'alpha_num|required|confirmed',
             'name' => 'alpha|nullable',
             'phone' => 'nullable|digits:11',
+            'address' => array('regex:/[А-Яа-яЁё0-9.,]/u'),
+
         ];
     }
 
@@ -48,6 +50,8 @@ class UserRegistrationRequest extends FormRequest
 //            'name.required' => 'Имя - обязательная графа',
             'name.alpha' => 'Имя может состоять только из букв',
             'phone.digits' => 'Поле "телефон" должно быть числом образца "89876543210"',
+//            'address.alpha_dash' => 'Адрес может состоять только из букв и цифр',
+
         ];
     }
 }

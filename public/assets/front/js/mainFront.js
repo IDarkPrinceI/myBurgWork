@@ -100,3 +100,11 @@ if (window.location.pathname.includes('/register')) {
         }
     }
 }
+// Показать корзину
+$("#cartCheck").on('click', function () {
+    $("#modal-cart").fadeIn()
+})
+// Скрыть корзину
+$("#cartClose").on('click', function () {
+    $("#modal-cart").fadeOut()
+})

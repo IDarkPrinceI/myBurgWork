@@ -63,6 +63,7 @@ class User extends Authenticatable
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
+
         $user->save();
 
         return $user;
@@ -148,7 +149,7 @@ class User extends Authenticatable
     }
 
 
-    public static function authenticationMiddleware()
+    public static function authenticationMiddleware($role)
     {
         $cacheKey= Cache::get('rememberMe');
 
@@ -162,7 +163,7 @@ class User extends Authenticatable
 
         if ($cacheKey !== null && $user !==0 && $userId !== null && $dbToken !== null) {
             if (Auth::check()
-                && ($user === 'user' || $user === 'admin')
+                && ($user === $role)
                 && Hash::check($cacheKey,  $dbToken->token)
                 && (Carbon::now() < $dbToken->expires_on)
                 && (User::getIp() === $dbToken->ip)) {

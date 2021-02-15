@@ -17,7 +17,7 @@ class UserAccessMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(User::authenticationMiddleware()) {
+        if(User::authenticationMiddleware('user')) {
             return $next($request);
         }
         session()->forget('role');

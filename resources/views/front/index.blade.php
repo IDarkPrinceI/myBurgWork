@@ -32,7 +32,7 @@
                                     <span style="display: inline; text-decoration: line-through; font-size: 20px">{{$product->old_price}} руб</span>
                                 @endif
                                 <div style="display: inline-block">
-                                    <a href="#" class="boxed-btn3"
+                                    <a href="{{ route('cart.add', ['slug' => $product->slug]) }}" class="boxed-btn3"
                                        style="width: 200px; height: 35px; padding: 5px 30px;"
                                        onmouseover="this.style.backgroundColor='#d95a1f';"
                                        onmouseout="this.style.backgroundColor='#F2C64D';"
