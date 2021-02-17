@@ -1,4 +1,5 @@
-<?php if(!empty($session['cart'])): ?>
+
+@if( session()->get('cart') )
 <div class="table-responsive">
     <table class="table table-hover table-striped">
         <thead>
@@ -12,27 +13,32 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($session['cart'] as $id => $item):?>
+@foreach( session()->get('cart') as $item)
+
         <tr>
-{{--            <td><?= \yii\helpers\Html::img("@web/uploads/product/{$item['img']}", ['alt' => $item['name'], 'height' => 50]) ?></td>--}}
-            <td id="my_text_name"><?= $item['name']?></td>
-            <td id="my_text_qty"><?= $item['qty']?></td>
-            <td><?= $item['price']?></td>
-            <td><?= $item['price'] * $item['qty'] ?></td>
-            <td><span data-id="<?= $id?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
+            @php $test = 'assets/far/img/product/' . $item['img']@endphp
+            <td><img src="{{ asset($test) }}" height="50px" alt=""></td>
+
+            <td id="my_text_name">{{ $item['title'] }}</td>
+            <td>{{ $item['qty'] }}</td>
+            <td>{{ $item['price'] }}</td>
+            <td>{{$item['price'] * $item['qty']}}</td>
+{{--            <td><span data-id="<?= $id?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>--}}
         </tr>
-        <?php endforeach?>
+@endforeach
         <tr>
             <td colspan="5">Итого, шт: </td>
-            <td id="cart-qty"><?= $session['cart.qty']?></td>
+{{--            <td id="cart-qty"><?= $session['cart.qty']?></td>--}}
+            <td id="cart-qty">{{ session('cart.qtySum') }}</td>
         </tr>
         <tr>
             <td colspan="5">На сумму, руб: </td>
-            <td id="cart-sum"><?= $session['cart.sum']?></td>
+{{--            <td id="cart-sum"><?= $session['cart.sum']?></td>--}}
+            <td id="cart-sum">{{ session('cart.totalPrice') }}</td>
         </tr>
         </tbody>
     </table>
 </div>
-<?php else: ?>
+@else
 <h3>Корзина пуста</h3>
-<?php endif;?>
+@endif

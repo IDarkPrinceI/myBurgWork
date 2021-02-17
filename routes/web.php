@@ -23,7 +23,8 @@ Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
 //Route::get('/menu/{category}/{slug}', 'ProductController@single')->middleware('test')->name('menu.single');
 Route::get('/menu/{category}/{slug}', 'ProductController@single')->name('menu.single');
 
-Route::get('/add/{slug}', 'CartController@add')->name('cart.add');
+Route::get('/cartAdd/{data}', 'CartController@cartAdd')->name('cart.add');
+//Route::get('/add', 'CartController@add')->name('cart.add');
 
 Route::get('/register', 'UserController@create')->name('register.create');
 Route::post('/register', 'UserController@store')->name('register.store');

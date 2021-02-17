@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function add($slug)
+    public function cartAdd($data)
     {
-        dd($slug);
+        $product = Product::query()
+            ->firstWhere('slug','=', $data);
+        $cart = new Cart();
+        $cart->addToCart($product);
+
+//        session(['cartProduct' => $product]);
+//        return $product;
+//        return $test;
     }
 }

@@ -12,6 +12,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row" style="background-color: rgba(230,230,230, .3); border-radius: 5%; padding-top: 30px;">
                 @foreach($products as $product)
                     <div class="col-xl-6 col-md-6 col-lg-6" style="opacity: 100%">
@@ -32,11 +33,13 @@
                                     <span style="display: inline; text-decoration: line-through; font-size: 20px">{{$product->old_price}} руб</span>
                                 @endif
                                 <div style="display: inline-block">
-                                    <a href="{{ route('cart.add', ['slug' => $product->slug]) }}" class="boxed-btn3"
+{{--                                    <a href="#" class="boxed-btn3 cardAdd"--}}
+                                    <button class="boxed-btn3 cardAdd"
                                        style="width: 200px; height: 35px; padding: 5px 30px;"
+                                       data-slug={{ $product->slug  }}
                                        onmouseover="this.style.backgroundColor='#d95a1f';"
                                        onmouseout="this.style.backgroundColor='#F2C64D';"
-                                    >Заказать</a>
+                                    >Заказать</button>
                                     <i class="fa fa-eye" style="color: whitesmoke"> {{$product->view}}</i>
                                 </div>
                             </div>

@@ -104,7 +104,60 @@ if (window.location.pathname.includes('/register')) {
 $("#cartCheck").on('click', function () {
     $("#modal-cart").fadeIn()
 })
+function showCart() {
+        $("#modal-cart").fadeIn()
+}
+
 // Скрыть корзину
 $("#cartClose").on('click', function () {
     $("#modal-cart").fadeOut()
 })
+
+$(".cardAdd").on('click', function (e) {
+    e.preventDefault()
+    const data = $(this).attr('data-slug')
+$.ajax({
+    headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: 'cartAdd/' + data,
+    // data: {data: data},
+    type: 'GET',
+    success: function (res) {
+        // $("#modal-cart").fadeIn()
+        // $(".modal-body").html(res)
+        $(".modal-body").load(document.URL + ' .modal-body')
+        showCart()
+
+    },
+    error: function (res) {
+        // console.log(res)
+        alert('Ошибка')
+    }
+})
+})
+
+// $.ajax({
+//     headers: {
+//         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+//     },
+//     url: event.data.paramUrl + id,
+//     type: 'delete',
+//     // dataType: 'json',
+//     data: {id: id,
+//         img: img},
+//     // contentType: false,
+//     // processData: false,
+//     success: function () {
+//         $('#modal-danger').modal('hide')
+//         $("#index").load(location.href + " #index")
+//         setTimeout(function () {
+//             $(".sessionFlash").fadeOut()
+//         }, 3500)
+//     },
+//     error: function () {
+//         alert('Ошибка')
+//     }
+// })
+
+

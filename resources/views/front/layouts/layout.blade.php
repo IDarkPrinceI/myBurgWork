@@ -100,13 +100,13 @@
     <!-- modalCart -->
     <div class="modal" id="modal-cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 750px;">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Моя корзина</h4>
 
                     <button type="button" id="cartClose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" >
 
                 @include('front.cart.modal-cart')
 
