@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    public function cartAdd($data)
+    public function cartAdd($slug)
     {
-        $product = Product::query()
-            ->firstWhere('slug','=', $data);
+        $product = Cart::identityProduct($slug);
         $cart = new Cart();
         $cart->addToCart($product);
+        return $product;
+    }
 
-//        session(['cartProduct' => $product]);
-//        return $product;
-//        return $test;
+
+    public function cartClear()
+    {
+        Session::forget(['cart', 'cartQtySum', 'cartTotalPrice']);
+    }
+
+
+    public function cartDell($slug)
+    {
+        $product = Cart::identityProduct($slug);
+        $cart = new Cart();
+        $cart->dellToCart($product);
+        return $product;
     }
 }

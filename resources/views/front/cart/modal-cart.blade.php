@@ -13,28 +13,25 @@
         </tr>
         </thead>
         <tbody>
-@foreach( session()->get('cart') as $item)
+@foreach( session()->get('cart') as $slug => $item)
 
-        <tr>
-            @php $test = 'assets/far/img/product/' . $item['img']@endphp
-            <td><img src="{{ asset($test) }}" height="50px" alt=""></td>
+        <tr id="cartTable">
+            <td><img src="{{ asset('/' . $item['img']) }}" height="50px" alt=""></td>
 
             <td id="my_text_name">{{ $item['title'] }}</td>
             <td>{{ $item['qty'] }}</td>
             <td>{{ $item['price'] }}</td>
             <td>{{$item['price'] * $item['qty']}}</td>
-{{--            <td><span data-id="<?= $id?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>--}}
+            <td><span data-slug="{{ $slug }}" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true" style="cursor: pointer">X</span></td>
         </tr>
 @endforeach
         <tr>
             <td colspan="5">Итого, шт: </td>
-{{--            <td id="cart-qty"><?= $session['cart.qty']?></td>--}}
-            <td id="cart-qty">{{ session('cart.qtySum') }}</td>
+            <td id="cart-qty">{{ session('cartQtySum') }}</td>
         </tr>
         <tr>
             <td colspan="5">На сумму, руб: </td>
-{{--            <td id="cart-sum"><?= $session['cart.sum']?></td>--}}
-            <td id="cart-sum">{{ session('cart.totalPrice') }}</td>
+            <td id="cart-sum">{{ session('cartTotalPrice') }}</td>
         </tr>
         </tbody>
     </table>

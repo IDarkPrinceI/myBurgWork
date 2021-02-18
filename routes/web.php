@@ -20,11 +20,11 @@ Route::get('/', 'MainController@index')->name('index');
 Route::get('/menu', 'ProductController@menu')->name('menu');
 Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
 
-//Route::get('/menu/{category}/{slug}', 'ProductController@single')->middleware('test')->name('menu.single');
 Route::get('/menu/{category}/{slug}', 'ProductController@single')->name('menu.single');
 
-Route::get('/cartAdd/{data}', 'CartController@cartAdd')->name('cart.add');
-//Route::get('/add', 'CartController@add')->name('cart.add');
+Route::get('/cartAdd/{slug}', 'CartController@cartAdd')->name('cart.add');
+Route::get('/cartClear', 'CartController@cartClear')->name('cart.clear');
+Route::get('/cartDell/{slug}', 'CartController@cartDell')->name('cart.dell');
 
 Route::get('/register', 'UserController@create')->name('register.create');
 Route::post('/register', 'UserController@store')->name('register.store');

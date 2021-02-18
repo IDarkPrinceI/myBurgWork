@@ -60,21 +60,19 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-5 d-none d-lg-block">
+                    <div  class="col-xl-5 col-lg-5 d-none d-lg-block">
                         <div class="book_room" style="padding: 50px">
                             <div class="socail_links">
                                 <ul>
-
-
                                     <li>
-                                        <a id="cartCheck" href="#">
+                                        <a id="cartCheck" style="cursor: pointer">
                                             <i class="fa fa-cart-arrow-down" aria-hidden="true">
-{{--                                                <span class="cart-qty" id="cart-qty"><?= $_SESSION['cart.qty'] ?? '0' ?> </span><span> шт. на сумму:</span>--}}
-                                                <span class="cart-qty" id="cart-qty">{{ session('cart.qty') ?? '0'}} </span><span> шт. на сумму:</span>
-{{--                                                <span class="cart-sum" id="cart-sum"><?= $_SESSION['cart.sum'] ?? '0' ?> </span><span> руб.</span></i>--}}
-                                                <span class="cart-sum" id="cart-sum">{{ session('cart_sum') ?? '0' }} </span><span> руб.</span></i>
+                                                <span class="cart-qty" id="cart-qty">{{ session('cartQtySum') ?? '0'}} </span><span> шт. на сумму:</span>
+                                                <span class="cart-sum" id="cart-sum">{{ session('cartTotalPrice') ?? '0' }} </span><span> руб.</span>
+                                            </i>
                                         </a>
                                     </li>
+
                                     @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
 
                                     {{--                                        <button onclick="getCart()" id="my_cart" type="button"  data-toggle="modal" data-target="#modal-cart">--}}
@@ -104,17 +102,17 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Моя корзина</h4>
 
-                    <button type="button" id="cartClose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close cartClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body" >
 
                 @include('front.cart.modal-cart')
 
                 </div>
-                <div class="modal-footer">
-{{--                    <button onclick="clearCart()" type="button" class="btn btn-danger pull-left" id="my_clean">Очистить корзину</button>--}}
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
-                    <a href="#" class="btn btn-success">Оформить заказ</a>
+                <div  class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" id="cartClean">Очистить корзину</button>
+                    <button type="button" class="btn btn-default cartClose" data-dismiss="modal">Продолжить покупки</button>
+                    <button class="btn btn-success">Оформить заказ</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 @extends('front.layouts.layout')
 
 @section('content')
-
+{{--{{dd(session('cart'))}}--}}
     <div class="best_burgers_area">
         <div class="container">
             <div class="row">
