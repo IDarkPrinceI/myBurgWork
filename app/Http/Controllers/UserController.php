@@ -18,6 +18,9 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
+        if ($request->ajax()) {
+            dd($request);
+        }
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials) && User::authentication($request)) {
 

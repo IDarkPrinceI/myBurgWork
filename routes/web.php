@@ -19,12 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'MainController@index')->name('index');
 Route::get('/menu', 'ProductController@menu')->name('menu');
 Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
-
 Route::get('/menu/{category}/{slug}', 'ProductController@single')->name('menu.single');
 
 Route::get('/cartAdd/{slug}', 'CartController@cartAdd')->name('cart.add');
 Route::get('/cartClear', 'CartController@cartClear')->name('cart.clear');
 Route::get('/cartDell/{slug}', 'CartController@cartDell')->name('cart.dell');
+Route::get('/getOrder', 'CartController@getOrder')->middleware('user')->name('cart.getOrder');
+Route::get('/cartReCalc/{qty}', 'CartController@cartReCalc')->middleware('user')->name('cart.reCalc');
 
 Route::get('/register', 'UserController@create')->name('register.create');
 Route::post('/register', 'UserController@store')->name('register.store');

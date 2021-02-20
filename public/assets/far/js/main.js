@@ -197,7 +197,6 @@ $(".content-wrapper").on('click', function () {
 
 // Функция для появления объектов
 function fadeIn(pack) {
-    // pack.forEach(key => {
     pack.forEach(function(key) {
         key.fadeIn()
         if (key.hasClass("buttonAdd")) {

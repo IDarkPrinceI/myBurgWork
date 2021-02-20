@@ -22,7 +22,7 @@
             <td>{{ $item['qty'] }}</td>
             <td>{{ $item['price'] }}</td>
             <td>{{$item['price'] * $item['qty']}}</td>
-            <td><span data-slug="{{ $slug }}" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true" style="cursor: pointer">X</span></td>
+            <td><span data-slug="{{ $slug }}" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true" style="cursor: pointer; font-weight: bold;">X</span></td>
         </tr>
 @endforeach
         <tr>
@@ -39,3 +39,12 @@
 @else
 <h3>Корзина пуста</h3>
 @endif
+<div  class="modal-footer">
+    @if (session('cart'))
+    <button  type="button" class="btn btn-danger pull-left" id="cartClean">Очистить корзину</button>
+    @endif
+    <button type="button" class="btn btn-default cartClose" data-dismiss="modal">Продолжить покупки</button>
+    @if (session('cart'))
+    <a href="{{ route('cart.getOrder') }}" class="btn btn-success">Оформить заказ</a>
+    @endif
+</div>

@@ -1,25 +1,63 @@
 //Кнопка минус
-$("#singleMinus").on('click', function () {
-        result('minus')
+$("body").on('click', ".singleMinus", function (e) {
+    const result = $(this).closest(".singleResult")
+    // console.log(result)
+        resultOn('minus', result)
     }
 )
 //Кнопка плюс
-$("#singlePlus").on('click', function () {
-        result('plus')
+$("body").on('click', ".singlePlus", function (e) {
+// $("#singlePlus").on('click', function () {
+        const result = $(this).closest(".singleResult").text()
+        resultOn('plus', result)
     }
 )
-
 //Функция изменения количества твара, добавляемого в корзину
-function result(typeButton) {
-    const result = document.querySelector("#singleResult")
-    let i = parseInt(result.textContent)
+function resultOn(typeButton, result) {
+    // const result = e.target.siblings("#singleResult")
+    // const result = e.closest("#singleResult")
+    // const result = document.querySelector("#singleResult")
+    // const result = document.querySelector("#singleResult")
+    // let i = parseInt(result.textContent)
+    console.log(result)
+
+    // let i = result.text()
     if (typeButton === 'plus' && i < 10) {
+        const qtyRez = 1 //
         i += 1
+        if (window.location.pathname.includes('/getOrder')) {
+            $("#overlay").css({'display': 'block'})
+            reCalc(qtyRez, i) //
+        }
     }
     if (typeButton === 'minus' && i > 1) {
+        const qtyRez = -1 //
         i -= 1
+        if (window.location.pathname.includes('/getOrder')) {
+            $("#overlay").css({'display': 'block'})
+            reCalc(qtyRez, i) //
+        }
     }
     result.textContent = i
+}
+//reCalcCart
+function reCalc(qtyRez, qty) {
+    const slug = $("#singleResult").attr('data-slug')
+    $.ajax({
+        url: '/cartReCalc/' + qty,
+        data: {slug: slug,
+               qtyRez: qtyRez},
+        success: function (res) {
+            $("#upOrderForm").load(document.URL + ' #orderForm')
+            setTimeout(function () {
+                $("#cartCheck").load(document.URL + ' #cartCheck')
+            }, 50)
+            $("#overlay").css({'display': 'none'})
+        },
+        error: function () {
+            alert('Ошибка')
+        }
+    })
 }
 
 //Задержка до исчезновения флеш сообщения об успехе
@@ -125,15 +163,23 @@ function reloadCart() {
 }
 
 //addCart
-$(".cardAdd").on('click', function (e) {
+$(".cartAdd").on('click', function (e) {
     e.preventDefault()
     const slug = $(this).attr('data-slug')
+    let qty = $("#singleResult").text()
+    if (qty === '') {
+        qty = 1
+    }
     $.ajax({
-        url: 'cartAdd/' + slug,
+        url: '/cartAdd/' + slug,
+        data: {qty: qty},
         type: 'GET',
         success: function () {
             reloadCart()
             showCart()
+            if (window.location.pathname.includes('/menu')) {
+                $("#singleResult").text(1)
+            }
         },
         error: function () {
             alert('Ошибка')
@@ -144,7 +190,7 @@ $(".cardAdd").on('click', function (e) {
 $("#cartClean").on('click', function (e) {
     e.preventDefault()
     $.ajax({
-        url: 'cartClear/',
+        url: '/cartClear/',
         type: 'GET',
         success: function () {
             hideCart()
@@ -160,7 +206,7 @@ $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
     e.preventDefault()
     const slug = $(this).attr('data-slug')
     $.ajax({
-        url: 'cartDell/' + slug,
+        url: '/cartDell/' + slug,
         type: 'GET',
         success: function () {
             reloadCart()
@@ -170,6 +216,36 @@ $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
         }
     })
 })
+//cartReCalc
+// function cartReCalc(qty){
+//     const slug = $("#singleResult").attr('data-slug')
+//     $.ajax({
+//         url: '/cartReCalc/' + qty,
+//         data: {slug: slug},
+//         success: function (res) {
+//             console.log(res)
+//             alert('Ура')
+//         },
+//         error: function () {
+//             alert('Ошибка')
+//         }
+//     })
+// }
+//cartCheck
+// $("#getOrder").on('click', function (e) {
+//     e.preventDefault()
+//     $.ajax({
+//         url: '/getOrder',
+//         success: function (res) {
+//             console.log(res)
+//             alert('Ура')
+//         },
+//         error: function () {
+//             alert('Ошибка')
+//         }
+//
+//     })
+// })
 
 
 

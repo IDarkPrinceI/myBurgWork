@@ -75,8 +75,6 @@
 
                                     @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
 
-                                    {{--                                        <button onclick="getCart()" id="my_cart" type="button"  data-toggle="modal" data-target="#modal-cart">--}}
-{{--                                        </button>--}}
                                 </ul>
                             </div>
                         </div>
@@ -109,11 +107,11 @@
                 @include('front.cart.modal-cart')
 
                 </div>
-                <div  class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" id="cartClean">Очистить корзину</button>
-                    <button type="button" class="btn btn-default cartClose" data-dismiss="modal">Продолжить покупки</button>
-                    <button class="btn btn-success">Оформить заказ</button>
-                </div>
+{{--                <div  class="modal-footer">--}}
+{{--                    <button type="button" class="btn btn-danger pull-left" id="cartClean">Очистить корзину</button>--}}
+{{--                    <button type="button" class="btn btn-default cartClose" data-dismiss="modal">Продолжить покупки</button>--}}
+{{--                    <a href="{{ route('cart.getOrder') }}" class="btn btn-success">Оформить заказ</a>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

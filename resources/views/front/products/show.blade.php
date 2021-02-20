@@ -31,10 +31,11 @@
                                     <span style="display: inline; text-decoration: line-through; font-size: 20px">{{$product->old_price}} руб</span>
                                 @endif
                                 <div style="display: inline-block; padding-top: 10px">
-                                    <a href="#" class="boxed-btn3" style="width: 200px; height: 35px; padding: 5px 30px"
+                                    <button class="boxed-btn3 cartAdd" style="width: 200px; height: 35px; padding: 5px 30px"
+                                       data-slug="{{ $product->slug  }}"
                                        onmouseover="this.style.backgroundColor='#d95a1f';"
                                        onmouseout="this.style.backgroundColor='#F2C64D';"
-                                    >Заказать</a>
+                                    >Заказать</button>
 
                                 </div>
                             </div>
