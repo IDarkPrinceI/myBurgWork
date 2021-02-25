@@ -26,6 +26,7 @@ Route::get('/cartClear', 'CartController@cartClear')->name('cart.clear');
 Route::get('/cartDell/{slug}', 'CartController@cartDell')->name('cart.dell');
 Route::get('/getOrder', 'CartController@getOrder')->middleware('user')->name('cart.getOrder');
 Route::get('/cartReCalc/{qty}', 'CartController@cartReCalc')->middleware('user')->name('cart.reCalc');
+Route::post('/confirmOrder', 'CartController@confirmOrder')->middleware('user')->name('cart.confirmOrder');
 
 Route::get('/register', 'UserController@create')->name('register.create');
 Route::post('/register', 'UserController@store')->name('register.store');
@@ -39,6 +40,7 @@ Route::group(['prefix' => 'far', 'namespace' => 'Far', 'middleware' => 'far'], f
     Route::resource('/categories', 'CategoryController');
     Route::get('/products/search', 'ProductController@search')->name('product.search');
     Route::resource('/products', 'ProductController');
+    Route::get('/orders', 'OrderController@index')->name('far.orderIndex');
 });
 
 

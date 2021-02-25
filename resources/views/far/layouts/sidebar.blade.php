@@ -84,7 +84,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ml-2">
-                            <a href="../tables/simple.html" class="nav-link">
+                            <a href="{{ route('far.orderIndex') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Список заказов</p>
                             </a>

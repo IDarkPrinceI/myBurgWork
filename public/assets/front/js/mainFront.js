@@ -1,54 +1,44 @@
 //Кнопка минус
-$("body").on('click', ".singleMinus", function (e) {
-    const result = $(this).closest(".singleResult")
-    // console.log(result)
-        resultOn('minus', result)
+$("body").on('click', ".singleMinus", function () {
+     resultOn('minus', $(this))
     }
 )
 //Кнопка плюс
-$("body").on('click', ".singlePlus", function (e) {
-// $("#singlePlus").on('click', function () {
-        const result = $(this).closest(".singleResult").text()
-        resultOn('plus', result)
+$("body").on('click', ".singlePlus", function () {
+    resultOn('plus', $(this))
     }
 )
 //Функция изменения количества твара, добавляемого в корзину
-function resultOn(typeButton, result) {
-    // const result = e.target.siblings("#singleResult")
-    // const result = e.closest("#singleResult")
-    // const result = document.querySelector("#singleResult")
-    // const result = document.querySelector("#singleResult")
-    // let i = parseInt(result.textContent)
-    console.log(result)
+function resultOn(typeButton, clickThis) {
+    const result = $(clickThis).siblings(".singleResult")
+    let resultVal = parseInt(result.text())
 
-    // let i = result.text()
-    if (typeButton === 'plus' && i < 10) {
-        const qtyRez = 1 //
-        i += 1
-        if (window.location.pathname.includes('/getOrder')) {
-            $("#overlay").css({'display': 'block'})
-            reCalc(qtyRez, i) //
+    if (typeButton === 'plus' && resultVal < 10) {
+        const qtyRez = 1
+        resultVal += 1
+        if(overlay()) {
+            reCalc(qtyRez, resultVal, result)
         }
     }
-    if (typeButton === 'minus' && i > 1) {
-        const qtyRez = -1 //
-        i -= 1
-        if (window.location.pathname.includes('/getOrder')) {
-            $("#overlay").css({'display': 'block'})
-            reCalc(qtyRez, i) //
+    if (typeButton === 'minus' && resultVal > 1) {
+        const qtyRez = -1
+        resultVal -= 1
+        if(overlay()) {
+            reCalc(qtyRez, resultVal, result)
         }
     }
-    result.textContent = i
+    result.text(resultVal)
 }
 //reCalcCart
-function reCalc(qtyRez, qty) {
-    const slug = $("#singleResult").attr('data-slug')
+function reCalc(qtyRez, qty, result) {
+    const slug = result.attr('data-slug')
     $.ajax({
         url: '/cartReCalc/' + qty,
         data: {slug: slug,
                qtyRez: qtyRez},
-        success: function (res) {
-            $("#upOrderForm").load(document.URL + ' #orderForm')
+        success: function () {
+            // $("#upOrderForm").load(document.URL + ' #orderForm')
+            $("#upOrderForm").load(document.URL + ' #upOrderForm')
             setTimeout(function () {
                 $("#cartCheck").load(document.URL + ' #cartCheck')
             }, 50)
@@ -59,6 +49,15 @@ function reCalc(qtyRez, qty) {
         }
     })
 }
+//Если страница оформления заказа
+function overlay() {
+    if(window.location.pathname.includes('/getOrder')) {
+        $("#overlay").css({'display': 'block'})
+        return true
+    }
+    return false
+}
+
 
 //Задержка до исчезновения флеш сообщения об успехе
 window.setTimeout(function () {
@@ -80,7 +79,8 @@ $("#rememberMe").on('change', function () {
 })
 
 //yandexMapRegistration
-if (window.location.pathname.includes('/register')) {
+// if (window.location.pathname.includes('/register' || '/getOrder')) {
+if (window.location.pathname.includes('/getOrder') || window.location.pathname.includes('/register')) {
     let myMap
 // Инициализация карты
     ymaps.ready(init);
@@ -147,7 +147,7 @@ function showCart() {
 }
 
 // Скрыть корзину
-$(".cartClose").on('click', function () {
+$("body").on('click', ".cartClose", function () {
     hideCart()
 })
 function hideCart() {
@@ -202,6 +202,23 @@ $("#cartClean").on('click', function (e) {
     })
 })
 //cartDell
+$("body").on('click', ".del-item", function () {
+    const slug = $(this).attr('data-slug')
+    $.ajax({
+        url: '/cartDell/' + slug,
+        type: 'GET',
+        success: function () {
+            $("#upOrderForm").load(document.URL + ' #orderForm')
+            setTimeout(function () {
+                $("#cartCheck").load(document.URL + ' #cartCheck')
+            }, 50)
+            reloadCart()
+        },
+        error: function () {
+            alert('Ошибка удаления товара')
+        }
+    })
+})
 $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
     e.preventDefault()
     const slug = $(this).attr('data-slug')
@@ -216,36 +233,6 @@ $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
         }
     })
 })
-//cartReCalc
-// function cartReCalc(qty){
-//     const slug = $("#singleResult").attr('data-slug')
-//     $.ajax({
-//         url: '/cartReCalc/' + qty,
-//         data: {slug: slug},
-//         success: function (res) {
-//             console.log(res)
-//             alert('Ура')
-//         },
-//         error: function () {
-//             alert('Ошибка')
-//         }
-//     })
-// }
-//cartCheck
-// $("#getOrder").on('click', function (e) {
-//     e.preventDefault()
-//     $.ajax({
-//         url: '/getOrder',
-//         success: function (res) {
-//             console.log(res)
-//             alert('Ура')
-//         },
-//         error: function () {
-//             alert('Ошибка')
-//         }
-//
-//     })
-// })
 
 
 

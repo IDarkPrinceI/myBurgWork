@@ -22,7 +22,7 @@
             <td>{{ $item['qty'] }}</td>
             <td>{{ $item['price'] }}</td>
             <td>{{$item['price'] * $item['qty']}}</td>
-            <td><span data-slug="{{ $slug }}" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true" style="cursor: pointer; font-weight: bold;">X</span></td>
+            <td><span onclick="dellItem()" data-slug="{{ $slug }}" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true" style="cursor: pointer; font-weight: bold;">X</span></td>
         </tr>
 @endforeach
         <tr>

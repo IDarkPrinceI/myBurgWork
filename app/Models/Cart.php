@@ -27,12 +27,6 @@ class Cart extends Model
             $qty = (Session::get('cart.' . $product['slug']))['qty'] + $qty;
         }
         $cartAttributes = $this->cartAttribute($product, $qty);
-//        $cartAttributes = [
-//            'title' => $product->title,
-//            'price' => $product->price,
-//            'img' => $product->img,
-//            'qty' => $qty];
-
         $sumPrice = $product->price;
         $totalPrice = Session::get('cartTotalPrice') ? Session::get('cartTotalPrice') + $sumPrice : $sumPrice;
 
@@ -44,12 +38,6 @@ class Cart extends Model
     public function recalculateCart($product, $qty, $qtyRez)
     {
         $cartAttributes = $this->cartAttribute($product, $qty);
-//        $cartAttributes = [
-//            'title' => $product->title,
-//            'price' => $product->price,
-//            'img' => $product->img,
-//            'qty' => $qty];
-
         $qtySum = Session::get('cartQtySum') + $qtyRez ;
         $productPrice = $product->price;
         $sumRez = $productPrice * $qtyRez;
@@ -82,6 +70,7 @@ class Cart extends Model
             'title' => $product->title,
             'price' => $product->price,
             'img' => $product->img,
-            'qty' => $qty];
+            'qty' => $qty,
+            'id' => $product->title];
     }
 }

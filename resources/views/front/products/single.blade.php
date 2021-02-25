@@ -41,12 +41,12 @@
                                 @endif
 
                                 <div style=" margin-top: 60px; margin-left: auto; margin-right: auto; width: 41%;">
-                                        <button id="singleMinus" class="genric-btn primary-border circle" style="display: inline; background-color: #F2C64D"
+                                        <button class="singleMinus genric-btn primary-border circle" style="display: inline; background-color: #F2C64D"
                                                 onmouseover="this.style.backgroundColor='#d95a1f';"
                                                 onmouseout="this.style.backgroundColor='#F2C64D';"
                                         >-</button>
-                                        <h5 id="singleResult" style="display: inline; font-weight: bold">1</h5>
-                                        <button id="singlePlus" class="genric-btn primary-border circle" style="display: inline; background-color: #F2C64D"
+                                        <h5 class="singleResult" style="display: inline; font-weight: bold">1</h5>
+                                        <button class="singlePlus genric-btn primary-border circle" style="display: inline; background-color: #F2C64D"
                                                 onmouseover="this.style.backgroundColor='#d95a1f';"
                                                 onmouseout="this.style.backgroundColor='#F2C64D';"
                                         >+</button>
