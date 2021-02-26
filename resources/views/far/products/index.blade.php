@@ -42,7 +42,7 @@
                     </div>
                 </div>
             @elseif ( count($products) !== 0)
-{{--            @elseif ( is_countable($products) !== 0)--}}
+                {{--            @elseif ( is_countable($products) !== 0)--}}
                 <div class="card mt-2">
                     <!-- /.card-header -->
                     <div class="card-body p-0">
@@ -82,6 +82,7 @@
                                     'typeSort' => 'view'])
                                 </th>
                                 <th>Картинка</th>
+                                <th>Действия</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -135,7 +136,7 @@
                     <!-- /.card-body -->
                 </div>
 
-            @widget('links_product', ['products' => $products])
+                @widget('links_product', ['products' => $products])
 
             @else
                 <div class="card mt-5">

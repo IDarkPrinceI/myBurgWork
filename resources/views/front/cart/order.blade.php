@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div id="orderForm" class="row"
-                 style="background-color: rgba(230,230,230, .7); border-radius: 5%; padding-top: 30px;">
+                 style="background-color: rgba(230,230,230, .4); border-radius: 5%; padding-top: 30px;">
 
                 <div class="col-xl-12 col-md-6 col-lg-6" style="opacity: 100%">
                     <div id="upOrderForm">
@@ -79,65 +79,53 @@
 
                             </div>
                     </div>
-                    <div class="col-lg-8" style="display: flex;">
+                    <div class="col-lg-12" style="display: flex; justify-content: space-around; flex-direction: row">
                         <form class="form-contact contact_form" action="{{ route('cart.confirmOrder') }}"
                               method="post" id="orderForm">
                             @csrf
-                            {{--                                    <div class="row"--}}
-                            {{--                                         style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: #f4f5f6">--}}
-
-                            <div class="col-sm-8">
+                            <div class="col-md-12">
                                 <label for="email" style="color: black">Введите Email *</label>
-                                <div class="form-group">
                                     <input class="form-control"
                                            name="email"
                                            id="email"
                                            type="text"
-                                           {{--                                                       value="{{ old('email') }}"--}}
                                            value="{{ $user['email'] }}"
                                            style="font-size: medium; color: #f4f5f6; @error('email') border-color: #ee0d0d!important; @enderror">
-                                </div>
                             </div>
 
-                            <div class="col-sm-8">
+                            <div class="col-md-12">
                                 <label for="name" style="color: black">Введите имя *</label>
 
-                                <div class="form-group">
                                     <input class="form-control"
                                            name="name"
                                            id="name"
                                            type="text"
                                            value="{{ $user['name'] }}"
                                            style="font-size: medium; color: #f4f5f6; @error('name') border-color: #ee0d0d!important; @enderror">
-                                </div>
                             </div>
 
-                            <div class="col-sm-8">
+                            <div class="col-md-12">
                                 <label for="phone" style="color: black">Введите телефон *</label>
 
-                                <div class="form-group">
                                     <input class="form-control"
                                            name="phone"
                                            id="phone"
                                            type="text"
                                            value="{{ $user['phone'] }}"
                                            style="font-size: medium; color: #f4f5f6; @error('phone') border-color: #ee0d0d!important; @enderror">
-                                </div>
                             </div>
 
-                            <div class="col-sm-8">
+                            <div class="col-md-12">
                                 <label for="address" style="color: black">Выберите адрес на карте *</label>
 
-                                <div class="form-group">
                                     <textarea class="form-control valid @error('address') is-invalid @enderror"
                                               name="address"
                                               id="address"
-                                              rows="3"
+                                              rows="4"
                                               type="text"
                                               {{--                                              disabled--}}
                                               style="font-size: medium; color: #f4f5f6; @error('address') border-color: #ee0d0d!important; @enderror">{{ $user['address'] }}
                                     </textarea>
-                                </div>
                             </div>
 
 
@@ -148,7 +136,7 @@
                             </div>
                             {{--                                    </div>--}}
                         </form>
-                        <div style="width: 100%; height: 400px; padding: 0.5em" id="map"></div>
+                        <div style="width: 50%; height: 400px; padding: 0.5em" id="map"></div>
 
                     </div>
                     @else

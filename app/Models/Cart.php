@@ -71,6 +71,6 @@ class Cart extends Model
             'price' => $product->price,
             'img' => $product->img,
             'qty' => $qty,
-            'id' => $product->title];
+            'id' => $product->id];
     }
 }

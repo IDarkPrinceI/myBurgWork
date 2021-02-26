@@ -40,11 +40,24 @@ class Order extends Model
                 'levelTwo' => null],
             );
         }
-        if ($route === 'create') {
-            session(['levelTwo' => 'Добавление категории']);
-        }
-        if ($route === 'edit') {
-            session(['levelTwo' => 'Редактирование']);
+        if ($route === 'show') {
+            session(['levelTwo' => 'Просмотр заказа']);
         }
     }
+
+
+    public static function findOrder($id)
+    {
+        $order = Order::query()
+            ->find($id);
+        return $order;
+    }
+
+
+    public function updateStatusOrder($status)
+    {
+        $this->status = $status;
+        $this->save();
+    }
+
 }

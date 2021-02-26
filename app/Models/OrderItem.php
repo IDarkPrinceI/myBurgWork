@@ -24,7 +24,7 @@ class OrderItem extends Model
         foreach ($products as $key => $item) {
             $orderItems = new OrderItem();
             $orderItems->order_id = $orderId;
-            $orderItems->product_id = $key;
+            $orderItems->product_id = $item['id'];
             $orderItems->name = $item['title'];
             $orderItems->img = $item['img'];
             $orderItems->price = $item['price'];

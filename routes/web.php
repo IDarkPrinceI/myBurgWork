@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::get('/', 'MainController@index')->name('index');
 Route::get('/menu', 'ProductController@menu')->name('menu');
 Route::get('/menu/{slug}', 'ProductController@show')->name('menu.show');
@@ -40,7 +37,9 @@ Route::group(['prefix' => 'far', 'namespace' => 'Far', 'middleware' => 'far'], f
     Route::resource('/categories', 'CategoryController');
     Route::get('/products/search', 'ProductController@search')->name('product.search');
     Route::resource('/products', 'ProductController');
-    Route::get('/orders', 'OrderController@index')->name('far.orderIndex');
+    Route::get('/orders', 'OrderController@index')->name('orders.index');
+    Route::get('/orderShow/{id}', 'OrderController@show')->name('orders.show');
+    Route::post('/orderUpdate/{id}', 'OrderController@update')->name('orders.update');
 });
 
 

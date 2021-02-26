@@ -205,6 +205,17 @@ function fadeIn(pack) {
     })
 }
 
+//Изменение Статуса заказа
+$("#status").on('change', function () {
+    if ($(this).val() === '1') {
+        $(this).val(0)
+        $(this).siblings('label').text('В работе')
+    } else {
+        $(this).val(1)
+        $(this).siblings('label').text('Завершен')
+    }
+})
+
 
 
 
