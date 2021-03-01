@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,9 @@ class MainController extends Controller
         $ordersInWork = Order::query()
             ->where('status', '=',0)
             ->count();
-        return view('far.index', compact('categories', 'products', 'orders', 'ordersInWork'));
+        $users = User::query()
+            ->where('role', '=', 'user')
+            ->count();
+        return view('far.index', compact('categories', 'products', 'orders', 'ordersInWork', 'users'));
     }
 }

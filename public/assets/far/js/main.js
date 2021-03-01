@@ -56,20 +56,27 @@ $('#oldImgBox').change(function (event) {
 // Передача параметров для удаления Категории
 $('body').on('click', '#tableIndex', function (event) {
     if (event.target.tag === 'BUTTON' || 'I') {
-        const dellForm = document.querySelector('#dellForm')
-        const id = event.target.getAttribute('data-id')
-        const img = event.target.getAttribute('data-img')
-        const indexOnDell = document.querySelector('#indexOnDell')
-        indexOnDell.classList.add('d-none')
-        dellForm.setAttribute('data-id', id)
-        dellForm.setAttribute('data-img', img)
+        const dellForm = $('#dellForm')
+        if (dellForm.length > 0) {
+            const id = event.target.getAttribute('data-id')
+            const img = event.target.getAttribute('data-img')
+            const indexOnDell = $('#indexOnDell')
+            indexOnDell.addClass('d-none')
+            dellForm.attr('data-id', id)
+            dellForm.attr('data-img', img)
 
-        if (+dellForm.getAttribute('data-img') === 1) {
-            indexOnDell.classList.remove('d-none')
+            if (+dellForm.attr('data-img') === 1) {
+                indexOnDell.removeClass('d-none')
+            }
+        } else {
+            dellUser()
         }
     }
 })
+//Удаление пользователя
+function dellUser() {
 
+}
 // Удаление категории
 $('#onDellCategory').on('click', {paramUrl: "categories/"}, dellItem)
 // Удаление продукта
@@ -215,6 +222,67 @@ $("#status").on('change', function () {
         $(this).siblings('label').text('Завершен')
     }
 })
+
+//yandexMapRegistration
+if (window.location.pathname.includes('/userEdit')) {
+    let myMap
+// Инициализация карты
+    ymaps.ready(init);
+
+    function init() {
+        let myPlacemark,
+            myMap = new ymaps.Map('map', {
+                center: [47.422052, 40.093725],
+                zoom: 17
+            });
+        myMap.controls
+            //Геолокация
+            .remove('geolocationControl')
+            //Полноэкранный режим
+            .remove('fullscreenControl')
+            // Список типов карты
+            .remove('typeSelector')
+            //Пробки
+            .remove('trafficControl')
+            //Линейка
+            .remove('rulerControl')
+
+        // Событие клика на карте.
+        myMap.events.add('click', function (e) {
+            let coords = e.get('coords');
+            // Если метка уже создана – передвигаем ее.
+            if (myPlacemark) {
+                myPlacemark.geometry.setCoordinates(coords);
+            }
+            // Если нет – создаем.
+            else {
+                myPlacemark = createPlacemark(coords);
+                myMap.geoObjects.add(myPlacemark);
+            }
+            //Получаем адрес по координатам клика
+            ymaps.geocode(coords).then(function (res) {
+                let geoObject = res.geoObjects.get(0),
+                    address = geoObject.getAddressLine(),
+                    value = document.querySelector('#address')
+
+                if (address.includes("Новочеркасск")) {
+                    value.value = geoObject.getAddressLine()
+                } else {
+                    value.value = ''
+                    alert('Укажите адрес в пределах города Новочеркасск')
+                }
+            });
+        });
+
+// Создание метки.
+        function createPlacemark(coords) {
+            return new ymaps.Placemark(coords, {
+                iconContent: '!'
+            });
+        }
+    }
+}
+
 
 
 

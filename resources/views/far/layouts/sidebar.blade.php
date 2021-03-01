@@ -1,6 +1,7 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="sidebar">
+{{--        mainFarPage--}}
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <a href="{{ route('far.index') }}">
@@ -11,7 +12,7 @@
                 </a>
             </div>
         </div>
-
+{{--        mainFrontPage--}}
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <a href="{{ url('/') }}">
@@ -22,17 +23,14 @@
                 </a>
             </div>
         </div>
-
-        <!-- Sidebar Menu -->
+{{--sidebar--}}
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
+{{--categories--}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-carrot nav-icon"></i>
-                        <p>
-                            Категории
+                        <p>Категории
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -51,11 +49,11 @@
                         </li>
                     </ul>
                 </li>
+{{--products--}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-pepper-hot nav-icon"></i>
-                        <p>
-                            Продукты
+                        <p>Продукты
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -74,11 +72,11 @@
                         </li>
                     </ul>
                 </li>
+{{--orders--}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-leaf"></i>
-                        <p>
-                            Заказы
+                        <p>Заказы
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -98,19 +96,19 @@
 
                     </ul>
                 </li>
+{{--statistics--}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Посетители
+                        <i class="nav-icon fas fa-seedling"></i>
+                        <p>Статистика
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../tables/simple.html" class="nav-link">
+                            <a href="{{ route('statistic.users') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>1</p>
+                                <p>Пользователи</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -127,39 +125,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Tables
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="../tables/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Simple Tables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../tables/data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../tables/jsgrid.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>jsGrid</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
+{{--//sidebar--}}
     </div>
-    <!-- /.sidebar -->
 </aside>
