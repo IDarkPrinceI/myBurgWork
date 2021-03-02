@@ -167,13 +167,11 @@
                     <form role="form" id="dellForm">
                         <button id="onDellProduct" type="submit" class="btn btn-outline-light">Подтвердить удаление
                         </button>
-                        <div id="indexOnDell"
-                             class="mt-4 d-none custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                        <div id="indexOnDell" class="mt-4 d-none custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                             <input type="checkbox" class="custom-control-input" id="onDellImg">
                             <label id="labelOnDellImg" class="custom-control-label" for="onDellImg">Переместить
                                 изображение</label>
                         </div>
-
                     </form>
                     <button type="button" class="btn btn-outline-light bg-gradient-success" data-dismiss="modal">
                         Отмена

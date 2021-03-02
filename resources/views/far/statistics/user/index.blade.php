@@ -45,10 +45,11 @@
                                         <a href="{{ route('statistic.user.edit', ['id' => $user['id']]) }}" class="btn btn-warning mr-1 rounded-right"><i class="fas fa-pen"></i></a>
                                         <button href="{{ route('statistic.user.dell', ['id' => $user['id']]) }}"
                                                 class="btn btn-danger mr-1 rounded-left rounded-right"
-{{--                                                data-id="{{ $user->id }}"--}}
+                                                data-id="{{ $user->id }}"
                                                 data-toggle="modal"
-                                                data-target="#modal-danger"
-                                        ><i class="fas fa-trash"></i></button>
+                                                data-target="#modal-danger">
+                                            <i data-id="{{$user->id}}" class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -80,12 +81,12 @@
                 </div>
                 <div class="modal-body">
                     <p>Вы действительно хотите удалить учетную запись?
-                        <br>
-                        Эта операция необратима
+                        <br>Вместе с ней будут удалены все заказы это пользователя
+                        <br>Эта операция необратима
                     </p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <form role="form">
+                    <form role="form" id="dellForm">
                         <button id="onDellUser" type="submit" class="btn btn-outline-light">Подтвердить удаление
                         </button>
                     </form>

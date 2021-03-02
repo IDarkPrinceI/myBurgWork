@@ -80,7 +80,7 @@
                                            id="address"
                                            rows="3"
                                            type="text"
-                                           disabled
+                                           readonly
                                            style="font-size: medium; color: #f4f5f6; @error('phone') border-color: #ee0d0d!important; @enderror">Выберите адрес на карте
                                     </textarea>
                                 </div>

@@ -53,44 +53,31 @@ $('#oldImgBox').change(function (event) {
     }
 })
 
-// Передача параметров для удаления Категории
+// Передача параметров для удаления
 $('body').on('click', '#tableIndex', function (event) {
-    if (event.target.tag === 'BUTTON' || 'I') {
-        const dellForm = $('#dellForm')
-        if (dellForm.length > 0) {
-            const id = event.target.getAttribute('data-id')
-            const img = event.target.getAttribute('data-img')
-            const indexOnDell = $('#indexOnDell')
-            indexOnDell.addClass('d-none')
-            dellForm.attr('data-id', id)
-            dellForm.attr('data-img', img)
-
-            if (+dellForm.attr('data-img') === 1) {
-                indexOnDell.removeClass('d-none')
-            }
-        } else {
-            dellUser()
+    const click = event.target
+    if (click.tag === 'BUTTON' || 'I') {
+        const id = click.getAttribute('data-id')
+        const img = click.getAttribute('data-img')
+        $('#dellForm').attr({'data-img': img, 'data-id': id})
+        const indexOnDell = $('#indexOnDell')
+        if (indexOnDell.length > 0 && img > 0) {
+            indexOnDell.removeClass('d-none')
         }
     }
 })
-//Удаление пользователя
-function dellUser() {
-
-}
 // Удаление категории
 $('#onDellCategory').on('click', {paramUrl: "categories/"}, dellItem)
 // Удаление продукта
 $('#onDellProduct').on('click', {paramUrl: "products/"}, dellItem)
+//Удаление пользователя
+$("#onDellUser").on('click', {paramUrl: "userDell/"}, dellItem)
 
 function dellItem(event) {
     event.preventDefault();
-    document.querySelector('#labelOnDellImg').setAttribute('data-target', '0')
-    const dellForm = document.querySelector('#dellForm')
-    const id = dellForm.getAttribute('data-id')
-    let img = dellForm.getAttribute('data-img')
-    if (document.querySelector('#onDellImg').checked === true) {
-        img = 2
-    }
+    const dellForm = $('#dellForm')
+    const id = dellForm.attr('data-id')
+    const img = dellForm.attr('data-img')
     $.ajax({
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -99,7 +86,7 @@ function dellItem(event) {
         type: 'delete',
         // dataType: 'json',
         data: {id: id,
-            img: img},
+               img: img},
         // contentType: false,
         // processData: false,
         success: function () {
@@ -117,13 +104,16 @@ function dellItem(event) {
 
 //Изменение чекбокса при подтверждении удаления категории
 $("#onDellImg").on('change', function () {
-    const label = document.querySelector('#labelOnDellImg')
-    if (label.getAttribute('data-target') === '1') {
-        label.setAttribute('data-target', '0')
-        label.textContent = 'Переместить изображение'
+    const label = $("#labelOnDellImg")
+    const form = $("#dellForm")
+    if (parseInt(label.attr('data-target')) === 1) {
+        label.attr('data-target', 0)
+        form.attr('data-img', 1)
+        label.text('Переместить изображение')
     } else {
-        label.setAttribute('data-target', '1')
-        label.textContent = 'Удалить изображение'
+        label.attr('data-target', 1)
+        form.attr('data-img', 2)
+        label.text('Удалить изображение')
     }
 })
 

@@ -144,6 +144,7 @@ class User extends Authenticatable
         $token->token = $rememberMe;
         $token->expires_on = $time;
         $token->ip = User::getIp();
+        $token->login_time = Carbon::now();
 
         if ($newToken = true) {
             $token->save();

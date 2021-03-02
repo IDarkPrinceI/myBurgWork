@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Far;
 
 use App\Http\Controllers\Controller;
+use App\Models\BreadCrumbs;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Statistic;
@@ -13,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        Statistic::breadCrumbs('index');
+        BreadCrumbs::breadCrumbs('index', 'Список пользователей', 'statistic.users');
 
         $users = User::query()
             ->paginate(5);
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        Statistic::breadCrumbs('edit');
+        BreadCrumbs::breadCrumbs('edit', 'Редактирование');
 
         $user = User::query()
             ->find($id);
@@ -49,11 +50,15 @@ class UserController extends Controller
         $user = User::query()
             ->find($id);
         $orders = Order::query()
-            ->join('order_items', 'orders.id', '=','order_items.order_id')
             ->where('user_id','=', $id)
             ->get();
-        dd($orders);
-        $orders->delete();
+        foreach ($orders as $order_id) {
+            $orderItem = OrderItem::query()
+                ->firstWhere('order_id', '=', $order_id->id);
+            $orderItem->delete();
+            $order_id->delete();
+        }
         $user->delete();
+        session()->flash('success-dell', "Пользователь '$user->name' удален!");
     }
 }

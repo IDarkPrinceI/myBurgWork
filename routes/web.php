@@ -48,7 +48,7 @@ Route::group(['prefix' => 'far', 'namespace' => 'Far', 'middleware' => 'far'], f
     Route::get('/users', 'UserController@index')->name('statistic.users');
     Route::get('/userEdit/{id}', 'UserController@edit')->name('statistic.user.edit');
     Route::post('/userUpdate/{id}', 'UserController@update')->name('statistic.user.update');
-    Route::get('/userDell/{id}', 'UserController@dell')->name('statistic.user.dell');
+    Route::delete('/userDell/{id}', 'UserController@dell')->name('statistic.user.dell');
 });
 
 
