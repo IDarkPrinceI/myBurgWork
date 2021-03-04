@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
     {{--    YandexMap--}}
     <script src="https://api-maps.yandex.ru/2.1/?apikey=8a3ecadb-e4ca-48eb-9d4e-cbc2af213efb&amp;lang=ru-RU"></script>
     {{--    YandexMap--}}
@@ -168,8 +169,6 @@
 
 <script src="{{ asset('assets/far/js/far.js') }}"></script>
 <script src="{{ asset('assets/far/js/main.js') }}"></script>
-
-
 
 </body>
 </html>

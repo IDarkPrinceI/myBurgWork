@@ -31,20 +31,6 @@ class Order extends Model
         return true;
     }
 
-    public static function breadCrumbs($route)
-    {
-        if ($route === 'index') {
-            session(['backRoute' => $_SERVER['REQUEST_URI'],
-                'levelOne' => 'Список заказов',
-                'levelOneRoute' => 'orders.index',
-                'levelTwo' => null],
-            );
-        }
-        if ($route === 'show') {
-            session(['levelTwo' => 'Просмотр заказа']);
-        }
-    }
-
 
     public static function findOrder($id)
     {

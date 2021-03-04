@@ -1,11 +1,11 @@
 //Кнопка минус
 $("body").on('click', ".singleMinus", function () {
-     resultOn('minus', $(this))
+        resultOn('minus', $(this))
     }
 )
 //Кнопка плюс
 $("body").on('click', ".singlePlus", function () {
-    resultOn('plus', $(this))
+        resultOn('plus', $(this))
     }
 )
 //Функция изменения количества твара, добавляемого в корзину
@@ -35,7 +35,7 @@ function reCalc(qtyRez, qty, result) {
     $.ajax({
         url: '/cartReCalc/' + qty,
         data: {slug: slug,
-               qtyRez: qtyRez},
+            qtyRez: qtyRez},
         success: function () {
             // $("#upOrderForm").load(document.URL + ' #orderForm')
             $("#upOrderForm").load(document.URL + ' #upOrderForm')

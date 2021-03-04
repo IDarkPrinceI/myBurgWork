@@ -112,9 +112,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../tables/data.html" class="nav-link">
+                            <a href="{{ route('statistic.user.datePick') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>2</p>
+                                <p>Уникальные польз-ли</p>
                             </a>
                         </li>
                         <li class="nav-item">

@@ -25,7 +25,7 @@ class MainController extends Controller
             ->where('status', '=',0)
             ->count();
         $users = User::query()
-            ->where('role', '=', 'user')
+//            ->where('role', '=', 'user')
             ->count();
         return view('far.index', compact('categories', 'products', 'orders', 'ordersInWork', 'users'));
     }

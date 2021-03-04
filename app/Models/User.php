@@ -34,8 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password'
     ];
 
     /**
@@ -57,15 +56,20 @@ class User extends Authenticatable
     public static function registration($request)
     {
         $user = new User();
-
-        $user->email = $request->email;
+        $user = self::writeAttributes($user, $request);
         $user->password = Hash::make($request->password);
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-
         $user->save();
 
+        return $user;
+    }
+
+
+    public static function writeAttributes($user, $request)
+    {
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->name = $request->name;
+        $user->address = $request->address;
         return $user;
     }
 
@@ -85,7 +89,6 @@ class User extends Authenticatable
         if ($remember === 'on') {
             $ttl = 432000;
         } else $ttl = 1800;
-//        $ttl = $remember ? 432000 : 1800;
         Cache::add('rememberMe', $randomByteCache, $ttl);
         return $randomByteCache;
     }
@@ -95,7 +98,7 @@ class User extends Authenticatable
     {
         $remember = \request()->get('rememberMe') ?? null;
 
-        $randomByteCache = User::setRememberMeCache($remember);
+        $randomByteCache = self::setRememberMeCache($remember);
         $rememberMe = Hash::make($randomByteCache);
         $time = $remember ? Carbon::now()->addHours(5) : Carbon::now()->addMinutes(30);
         $newToken = false;
@@ -143,7 +146,7 @@ class User extends Authenticatable
         }
         $token->token = $rememberMe;
         $token->expires_on = $time;
-        $token->ip = User::getIp();
+        $token->ip = self::getIp();
         $token->login_time = Carbon::now();
 
         if ($newToken = true) {
@@ -158,7 +161,7 @@ class User extends Authenticatable
     public static function authenticationMiddleware($role)
     {
         $cacheKey= Cache::get('rememberMe');
-        $user = User::getRole();
+        $user = self::getRole();
         $userId = Auth::id();
 
         $dbToken = Token::query()
@@ -171,10 +174,18 @@ class User extends Authenticatable
             && ($user === $role)
             && Hash::check($cacheKey,  $dbToken->token)
             && (Carbon::now() < $dbToken->expires_on)
-            && (User::getIp() === $dbToken->ip)) {
+            && (self::getIp() === $dbToken->ip)) {
             return true;
         }
         return false;
         }
     }
+
+
+    public static function getUser($id)
+    {
+        return self::query()
+            ->find($id);
+    }
+
 }

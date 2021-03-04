@@ -17,10 +17,7 @@ class BreadCrumbs extends Model
                 'levelTwo' => null],
             );
         }
-        if ($route === 'create') {
-            session(['levelTwo' => $level]);
-        }
-        if ($route === 'edit') {
+        if ($route === 'create' || $route === 'edit' || $route === 'show') {
             session(['levelTwo' => $level]);
         }
     }

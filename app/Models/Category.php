@@ -35,21 +35,4 @@ class Category extends Model
 
         return $category;
     }
-
-    public static function breadCrumbs($route)
-    {
-        if ($route === 'index') {
-            session(['backRoute' => $_SERVER['REQUEST_URI'],
-                    'levelOne' => 'Список категорий',
-                    'levelOneRoute' => 'categories.index',
-                    'levelTwo' => null],
-            );
-        }
-        if ($route === 'create') {
-            session(['levelTwo' => 'Добавление категории']);
-        }
-        if ($route === 'edit') {
-            session(['levelTwo' => 'Редактирование']);
-        }
-    }
 }

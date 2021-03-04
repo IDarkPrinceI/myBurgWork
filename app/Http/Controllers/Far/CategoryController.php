@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Far;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FarCategoryRequest;
+use App\Models\BreadCrumbs;
 use App\Models\Category;
 use App\Models\UploadForm;
 use Illuminate\Support\Facades\Request;
@@ -15,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        Category::breadCrumbs('index');
+        BreadCrumbs::breadCrumbs('index', 'Список категорий', 'categories.index');
 
         $categories = Category::query()
             ->paginate(5);
@@ -26,7 +27,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        Category::breadCrumbs('create');
+        BreadCrumbs::breadCrumbs('create', 'Добавление категории');
 
         return view('far.categories.create');
     }
@@ -54,10 +55,10 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        Category::breadCrumbs('edit');
-
         $category = Category::query()
             ->findOrFail($id);
+        BreadCrumbs::breadCrumbs('edit', "Редактирование: $category->title");
+
         return view('far.categories.edit', compact('category'));
     }
 
@@ -78,8 +79,6 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-//        return response()->json($category->img);
-
         $img = request()->get('img');
         $category = Category::query()
             ->find($id);

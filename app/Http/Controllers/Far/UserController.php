@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\BreadCrumbs;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -24,22 +23,17 @@ class UserController extends Controller
     public function edit($id)
     {
         BreadCrumbs::breadCrumbs('edit', 'Редактирование');
+        $user = User::getUser($id);
 
-        $user = User::query()
-            ->find($id);
         return view('far.statistics.user.edit', compact('user'));
     }
 
 
     public function update($id, Request $request)
     {
-        $user = User::query()
-            ->find($id);
+        $user = User::getUser($id);
+        $user = User::writeAttributes($user, $request);
         $user->role = $request->role;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->name = $request->name;
-        $user->address = $request->address;
         $user->save();
         return redirect()->route('statistic.users');
     }
@@ -47,8 +41,8 @@ class UserController extends Controller
 
     public function dell($id)
     {
-        $user = User::query()
-            ->find($id);
+        $user = User::getUser($id);
+
         $orders = Order::query()
             ->where('user_id','=', $id)
             ->get();
@@ -61,4 +55,11 @@ class UserController extends Controller
         $user->delete();
         session()->flash('success-dell', "Пользователь '$user->name' удален!");
     }
+
+
+    public function datePick()
+    {
+        return view('far.statistics.user.datePick');
+    }
+
 }

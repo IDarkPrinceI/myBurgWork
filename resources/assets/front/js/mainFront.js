@@ -37,7 +37,8 @@ function reCalc(qtyRez, qty, result) {
         data: {slug: slug,
             qtyRez: qtyRez},
         success: function () {
-            $("#upOrderForm").load(document.URL + ' #orderForm')
+            // $("#upOrderForm").load(document.URL + ' #orderForm')
+            $("#upOrderForm").load(document.URL + ' #upOrderForm')
             setTimeout(function () {
                 $("#cartCheck").load(document.URL + ' #cartCheck')
             }, 50)
@@ -78,7 +79,8 @@ $("#rememberMe").on('change', function () {
 })
 
 //yandexMapRegistration
-if (window.location.pathname.includes('/register')) {
+// if (window.location.pathname.includes('/register' || '/getOrder')) {
+if (window.location.pathname.includes('/getOrder') || window.location.pathname.includes('/register')) {
     let myMap
 // Инициализация карты
     ymaps.ready(init);
@@ -145,7 +147,7 @@ function showCart() {
 }
 
 // Скрыть корзину
-$(".cartClose").on('click', function () {
+$("body").on('click', ".cartClose", function () {
     hideCart()
 })
 function hideCart() {
@@ -200,6 +202,23 @@ $("#cartClean").on('click', function (e) {
     })
 })
 //cartDell
+$("body").on('click', ".del-item", function () {
+    const slug = $(this).attr('data-slug')
+    $.ajax({
+        url: '/cartDell/' + slug,
+        type: 'GET',
+        success: function () {
+            $("#upOrderForm").load(document.URL + ' #orderForm')
+            setTimeout(function () {
+                $("#cartCheck").load(document.URL + ' #cartCheck')
+            }, 50)
+            reloadCart()
+        },
+        error: function () {
+            alert('Ошибка удаления товара')
+        }
+    })
+})
 $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
     e.preventDefault()
     const slug = $(this).attr('data-slug')
@@ -214,36 +233,6 @@ $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
         }
     })
 })
-//cartReCalc
-// function cartReCalc(qty){
-//     const slug = $("#singleResult").attr('data-slug')
-//     $.ajax({
-//         url: '/cartReCalc/' + qty,
-//         data: {slug: slug},
-//         success: function (res) {
-//             console.log(res)
-//             alert('Ура')
-//         },
-//         error: function () {
-//             alert('Ошибка')
-//         }
-//     })
-// }
-//cartCheck
-// $("#getOrder").on('click', function (e) {
-//     e.preventDefault()
-//     $.ajax({
-//         url: '/getOrder',
-//         success: function (res) {
-//             console.log(res)
-//             alert('Ура')
-//         },
-//         error: function () {
-//             alert('Ошибка')
-//         }
-//
-//     })
-// })
 
 
 

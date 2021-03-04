@@ -86,7 +86,7 @@ function dellItem(event) {
         type: 'delete',
         // dataType: 'json',
         data: {id: id,
-               img: img},
+            img: img},
         // contentType: false,
         // processData: false,
         success: function () {
@@ -272,6 +272,10 @@ if (window.location.pathname.includes('/userEdit')) {
         }
     }
 }
+// Календарь
+$(function() {
+    $("#datepicker").datepicker($.datepicker.regional["ru"]);
+});
 
 
 

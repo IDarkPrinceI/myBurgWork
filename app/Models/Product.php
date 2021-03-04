@@ -49,27 +49,6 @@ class Product extends Model
     }
 
 
-    public static function breadCrumbs($route, $productTitle = null)
-    {
-        if ($route === 'index') {
-            session(['backRoute' => $_SERVER['REQUEST_URI'],
-                'levelOne' => 'Список продуктов',
-                'levelOneRoute' => 'products.index',
-                'levelTwo' => null],
-            );
-        }
-        if ($route === 'create') {
-            session(['levelTwo' => 'Добавление товара']);
-        }
-        if ($route === 'edit') {
-            session(['levelTwo' => "Редактирование: $productTitle"]);
-        }
-        if ($route === 'show') {
-            session(['levelTwo' => "$productTitle"]);
-        }
-    }
-
-
     public static function getQuery($query, $sort = null, $direction = null)
     {
         $query = $query
