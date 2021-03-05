@@ -27,7 +27,7 @@ mix.scripts([
     'resources/assets/far/js/jquery.ui.datepicker-ru.js',
     'resources/assets/far/js/jquery-ui.min.js',
     'resources/assets/far/js/Chart.js',
-    'resources/assets/far/js/myChart.js',
+    // 'resources/assets/far/js/myChart.js',
 ], 'public/assets/far/js/far.js');
 
 mix.copyDirectory('resources/assets/far/plugins/fontawesome-free/webfonts', 'public/assets/far/webfonts');

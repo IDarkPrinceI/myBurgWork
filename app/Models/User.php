@@ -59,7 +59,6 @@ class User extends Authenticatable
         $user = self::writeAttributes($user, $request);
         $user->password = Hash::make($request->password);
         $user->save();
-
         return $user;
     }
 
@@ -113,7 +112,7 @@ class User extends Authenticatable
             ->where('user_id', $user->id ?? $userId->id)
             ->first();
 
-        if (User::writeToken($rememberMe, $userId, $newToken, $time, $token)) {
+        if (self::writeToken($rememberMe, $userId, $newToken, $time, $token) && Statistic::writeStatistic($request['email'])) {
             return true;
         } else {
             return false;
@@ -147,7 +146,10 @@ class User extends Authenticatable
         $token->token = $rememberMe;
         $token->expires_on = $time;
         $token->ip = self::getIp();
-        $token->login_time = Carbon::now();
+//        $token->login_time = Carbon::now();
+//        $token->login_time = Carbon::parse(Carbon::now())->format('d.m.Y');
+//        $token->login_time = Carbon::createFromFormat('d/m/Y', Carbon::now());
+//        $token->login_time = Carbon::createFromFormat('d/m/Y', '12.12.12');
 
         if ($newToken = true) {
             $token->save();

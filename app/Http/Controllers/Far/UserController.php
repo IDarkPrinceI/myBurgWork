@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\BreadCrumbs;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Statistic;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -62,4 +64,21 @@ class UserController extends Controller
         return view('far.statistics.user.datePick');
     }
 
+
+    public function chart($dateStart, $dateFinish)
+    {
+        $date = Carbon::parse($dateStart, 'd.m.Y');
+        $newdate = $date->addDay();
+
+        $usersStart = Statistic::query()
+            ->where('date' ,'=', $dateStart)
+            ->count();
+        $usersFinish = Statistic::query()
+            ->where('date' ,'=', $dateFinish)
+            ->count();
+//        $userThree = Statistic::query()
+//            ->where('date' ,'=', $newdate)
+//            ->count();
+        return [$usersStart, $usersFinish];
+    }
 }

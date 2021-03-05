@@ -169,6 +169,7 @@
 
 <script src="{{ asset('assets/far/js/far.js') }}"></script>
 <script src="{{ asset('assets/far/js/main.js') }}"></script>
+<script src="{{ asset('assets/far/js/myChart.js') }}"></script>
 
 </body>
 </html>

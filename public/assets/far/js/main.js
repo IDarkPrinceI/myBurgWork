@@ -274,7 +274,10 @@ if (window.location.pathname.includes('/userEdit')) {
 }
 // Календарь
 $(function() {
-    $("#datepicker").datepicker($.datepicker.regional["ru"]);
+    $("#datePickerStart").datepicker($.datepicker.regional["ru"]);
+});
+$(function() {
+    $("#datePickerFinish").datepicker($.datepicker.regional["ru"]);
 });
 
 

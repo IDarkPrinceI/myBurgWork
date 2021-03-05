@@ -50,6 +50,7 @@ Route::group(['prefix' => 'far', 'namespace' => 'Far', 'middleware' => 'far'], f
     Route::post('/userUpdate/{id}', 'UserController@update')->name('statistic.user.update');
     Route::delete('/userDell/{id}', 'UserController@dell')->name('statistic.user.dell');
     Route::get('/datePick', 'UserController@datePick')->name('statistic.user.datePick');
+    Route::get('/chart/{dateStart}/{dateFinish}', 'UserController@chart')->name('statistic.user.chart');
 });
 
 
