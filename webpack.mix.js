@@ -27,7 +27,7 @@ mix.scripts([
     'resources/assets/far/js/jquery.ui.datepicker-ru.js',
     'resources/assets/far/js/jquery-ui.min.js',
     'resources/assets/far/js/Chart.js',
-    // 'resources/assets/far/js/myChart.js',
+    'resources/assets/far/js/myChart.js',
 ], 'public/assets/far/js/far.js');
 
 mix.copyDirectory('resources/assets/far/plugins/fontawesome-free/webfonts', 'public/assets/far/webfonts');
@@ -56,33 +56,10 @@ mix.styles([
 ], 'public/assets/front/css/front.css');
 
 mix.scripts([
-    // 'resources/assets/front/js/ajax-form.js',
-    // 'resources/assets/front/js/bootstrap.min.js',
-    // 'resources/assets/front/js/contact.js',
-    // 'resources/assets/front/js/imagesloaded.pkgd.min.js',
-    // 'resources/assets/front/js/isotope.pkgd.min.js',
-    // 'resources/assets/front/js/jquery.ajaxchimp.min.js',
-    // 'resources/assets/front/js/jquery.counterup.min.js',
-    // 'resources/assets/front/js/jquery.form.js',
-    // 'resources/assets/front/js/jquery.magnific-popup.min.js',
-    // 'resources/assets/front/js/jquery.scrollUp.min.js',
-    // 'resources/assets/front/js/jquery.slicknav.min.js',
-    // 'resources/assets/front/js/jquery.validate.min.js',
-    // 'resources/assets/front/js/mail-script.js',
-    // 'resources/assets/front/js/main.js',
-    // 'resources/assets/front/js/nice-select.min.js',
-    // 'resources/assets/front/js/owl.carousel.min.js',
-    // 'resources/assets/front/js/plugins.js',
-    // 'resources/assets/front/js/popper.min.js',
-    // 'resources/assets/front/js/scrollIt.js',
-    // 'resources/assets/front/js/waypoints.min.js',
-    // 'resources/assets/front/js/wow.min.js',
     'resources/assets/front/js/vendor/jquery-1.12.4.min.js',
-    // 'resources/assets/front/js/vendor/modernizr-3.5.0.min.js',
 ], 'public/assets/front/js/front.js');
 
 mix.copy('resources/assets/front/js/mainFront.js', 'public/assets/front/js/mainFront.js');
-
 
 mix.copyDirectory('resources/assets/front/fonts', 'public/assets/front/fonts');
 

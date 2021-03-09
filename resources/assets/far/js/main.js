@@ -9,18 +9,16 @@ $('.nav-sidebar a').each(function () {
         $(this).closest('.has-treeview').addClass('menu-open');
     }
 })
-//Добавления класса active к выбранному элементу nav-sidebar'а
 
-// Модальное окно
+// Показать модальное окно
 $('#myModal').modal('show')
 
-// Модальное окно
-
-
+//Функция добавить/убрать класс
 function elementClassToggle(elem) {
     elem.parentElement.classList.toggle('text-danger')
 }
 
+//Функция убрать класс и отметку
 function elementClassRemove(elem) {
     elem.parentElement.classList.remove('text-danger')
     elem.checked = false
@@ -73,6 +71,7 @@ $('#onDellProduct').on('click', {paramUrl: "products/"}, dellItem)
 //Удаление пользователя
 $("#onDellUser").on('click', {paramUrl: "userDell/"}, dellItem)
 
+//Функция удалить
 function dellItem(event) {
     event.preventDefault();
     const dellForm = $('#dellForm')
@@ -84,14 +83,13 @@ function dellItem(event) {
         },
         url: event.data.paramUrl + id,
         type: 'delete',
-        // dataType: 'json',
         data: {id: id,
             img: img},
-        // contentType: false,
-        // processData: false,
         success: function () {
             $('#modal-danger').modal('hide')
+            //Перезагрузка отображения
             $("#index").load(location.href + " #index")
+            //Исчезновение флеш
             setTimeout(function () {
                 $(".sessionFlash").fadeOut()
             }, 3500)
@@ -102,7 +100,7 @@ function dellItem(event) {
     })
 }
 
-//Изменение чекбокса при подтверждении удаления категории
+//Изменение чекбокса (переместить/удалить) при подтверждении удаления категории
 $("#onDellImg").on('change', function () {
     const label = $("#labelOnDellImg")
     const form = $("#dellForm")
@@ -189,6 +187,7 @@ $(".content-wrapper").on('click', function () {
             ]
         }
     }
+    //Появление элементов
     fadeIn(pack)
 })
 
@@ -274,7 +273,10 @@ if (window.location.pathname.includes('/userEdit')) {
 }
 // Календарь
 $(function() {
-    $("#datepicker").datepicker($.datepicker.regional["ru"]);
+    $("#datePickerStart").datepicker($.datepicker.regional["ru"]);
+});
+$(function() {
+    $("#datePickerFinish").datepicker($.datepicker.regional["ru"]);
 });
 
 

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    //страница список пользователей
     public function index()
     {
         BreadCrumbs::breadCrumbs('index', 'Список пользователей', 'statistic.users');
@@ -22,6 +23,7 @@ class UserController extends Controller
         return view('far.statistics.user.index', compact('users'));
     }
 
+    //страница обновление пользователя
     public function edit($id)
     {
         BreadCrumbs::breadCrumbs('edit', 'Редактирование');
@@ -30,7 +32,7 @@ class UserController extends Controller
         return view('far.statistics.user.edit', compact('user'));
     }
 
-
+    //обновление пользователя
     public function update($id, Request $request)
     {
         $user = User::getUser($id);
@@ -40,13 +42,13 @@ class UserController extends Controller
         return redirect()->route('statistic.users');
     }
 
-
+    //удаление пользователя
     public function dell($id)
     {
         $user = User::getUser($id);
 
         $orders = Order::query()
-            ->where('user_id','=', $id)
+            ->where('user_id', '=', $id)
             ->get();
         foreach ($orders as $order_id) {
             $orderItem = OrderItem::query()
@@ -58,27 +60,27 @@ class UserController extends Controller
         session()->flash('success-dell', "Пользователь '$user->name' удален!");
     }
 
-
+    //страница уникальных пользователей
     public function datePick()
     {
         return view('far.statistics.user.datePick');
     }
 
-
+    //получение данных для графика уникальных пользователей
     public function chart($dateStart, $dateFinish)
     {
-        $date = Carbon::parse($dateStart, 'd.m.Y');
-        $newdate = $date->addDay();
+        $res = [];
+        $labels = [];
+        $dateStart = Carbon::parse($dateStart)->addDays(-1);
+        $dateFinish = Carbon::parse($dateFinish);
+        $dif = $dateFinish->diff($dateStart)->days;
 
-        $usersStart = Statistic::query()
-            ->where('date' ,'=', $dateStart)
-            ->count();
-        $usersFinish = Statistic::query()
-            ->where('date' ,'=', $dateFinish)
-            ->count();
-//        $userThree = Statistic::query()
-//            ->where('date' ,'=', $newdate)
-//            ->count();
-        return [$usersStart, $usersFinish];
+        for ($day = 1; $day <= $dif; $day++) {
+            $dateStart = $dateStart->addDays();
+            $formatDate = Carbon::parse($dateStart)->format('d.m.Y');
+            $res = Statistic::countUsers($res, $formatDate);
+            array_push($labels, $formatDate);
+        }
+        return [$labels, $res];
     }
 }
