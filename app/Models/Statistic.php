@@ -9,14 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Statistic extends Model
 {
+    //запрет на поля created_at и update_at
     public $timestamps = false;
 
+
+//    запись статистики в БД
     public static function writeStatistic($email)
     {
         $statistic = Statistic::query()
             ->where('date', '=', self::parseNow())
-            ->firstWhere('email','=', $email);
-        if($statistic === null) {
+            ->firstWhere('email', '=', $email);
+        if ($statistic === null) {
             $statistic = new Statistic();
             self::writeAttributes($statistic, $email);
             $statistic->save();
@@ -27,24 +30,24 @@ class Statistic extends Model
         return true;
     }
 
-
+//    подсчет пользователей за дату
     public static function countUsers($res, $date)
     {
         $users = Statistic::query()
-            ->where('date' ,'=', $date)
+            ->where('date', '=', $date)
             ->count();
         array_push($res, $users);
         return $res;
     }
 
-
+//    Форматировани времени в нужный формат
     public static function parseNow()
     {
         $nowDate = Carbon::parse(Carbon::now())->format('d.m.Y');
         return $nowDate;
     }
 
-
+//    заполнение атрибутов
     public static function writeAttributes($statistic, $email)
     {
         $statistic->email = $email;

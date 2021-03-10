@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Session;
 
 class OrderItem extends Model
 {
+    //запрет на поля created_at и update_at
     public $timestamps = false;
 
+//    связь таблиц товары заказа и заказы
     public function getOrder()
     {
         return $this->hasOne(Order::class);
     }
 
-
+//    сохранение товаров заказа
     public static function saveOrderItems($orderId)
     {
         $products = Session::get('cart');

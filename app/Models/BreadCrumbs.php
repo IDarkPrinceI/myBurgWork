@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BreadCrumbs extends Model
 {
+//    хлебные крошки для админской части
     public static function breadCrumbs($route, $level, $levelOneRoute = null)
     {
         if ($route === 'index') {

@@ -15,19 +15,19 @@ class Product extends Model
         'slug',
     ];
 
-
+//    связь таблицы категории и продукты
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-
+//    мутатор для записи slug
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value, '-');
     }
 
-
+//    сохранение продукта (для админской части)
     public static function saveProduct($request, $file, $product = null)
     {
         if (!$product) {
@@ -48,11 +48,11 @@ class Product extends Model
         return $product;
     }
 
-
+//    построение запроса
     public static function getQuery($query, $sort = null, $direction = null)
     {
         $query = $query
-            ->join('categories', 'categories.id',  '=', 'products.category_id' )
+            ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('categories.title as category_title', 'products.*');
 
         if ($sort && $direction) {
@@ -64,7 +64,7 @@ class Product extends Model
         return $query;
     }
 
-
+//    получение релевантного списка продуктов для поиска
     public static function getProductToSearch($baseSearch)
     {
         $wordsSearch = self::cleanSearchString($baseSearch);
@@ -73,29 +73,29 @@ class Product extends Model
         }
         $baseSearchClear = implode(' ', $wordsSearch);
         $count = count($wordsSearch);
-            //значения каждого отдельного слова в названии и описании для расчета релевантности
-        $separateWordName = round( (20/$count), 2);
-        $separateWordDescription = round( (10/$count), 2);
-            //Задаем параметры релевантности
-            //Условия для полного запроса в названии и описании
+        //значения каждого отдельного слова в названии и описании для расчета релевантности
+        $separateWordName = round((20 / $count), 2);
+        $separateWordDescription = round((10 / $count), 2);
+        //Задаем параметры релевантности
+        //Условия для полного запроса в названии и описании
         $relevance = "IF (`products` . `title` LIKE '%" . $baseSearchClear . "%', 60, 0)";
         $relevance .= " + IF (`products` . `description` LIKE '%" . $baseSearchClear . "%', 10, 0)";
-            //Условия для каждого из слов запроса в названии и описании
+        //Условия для каждого из слов запроса в названии и описании
         foreach ($wordsSearch as $word) {
-            $relevance .= " + IF (`products` . `title` LIKE '%" . $word . "%', ". $separateWordName. ", 0)";
-            $relevance .= " + IF (`products` . `description` LIKE '%" . $word . "%', ".$separateWordDescription.", 0)";
-            }
+            $relevance .= " + IF (`products` . `title` LIKE '%" . $word . "%', " . $separateWordName . ", 0)";
+            $relevance .= " + IF (`products` . `description` LIKE '%" . $word . "%', " . $separateWordDescription . ", 0)";
+        }
         $query = Product::query()
-            ->join('categories', 'categories.id',  '=', 'products.category_id' )
+            ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('categories.title as category_title', 'products.*')
             //Создается новое поле "relevance", значение которого будет устанавливаться путем выполнения условий, записанных в $relevance
             ->selectRaw("$relevance AS relevance")
             ->orderBy('relevance', 'desc')
-            ->where('products.title', 'like', '%'. $baseSearchClear .'%')
+            ->where('products.title', 'like', '%' . $baseSearchClear . '%')
             ->orWhere('products.title', 'like', '%' . $wordsSearch[0] . '%');
-            for ($i = 1; $i < $count; $i++) {
-                $query = $query->orWhere('products.title', 'like', $wordsSearch[$i]);
-            }
+        for ($i = 1; $i < $count; $i++) {
+            $query = $query->orWhere('products.title', 'like', $wordsSearch[$i]);
+        }
         $query = $query
             ->orWhere('products.description', 'like', '%' . $baseSearchClear . '%')
             ->orWhere('products.description', 'like', '%' . $wordsSearch[0] . '%');
@@ -111,7 +111,7 @@ class Product extends Model
         return $products;
     }
 
-
+//    обработка поискового запроса
     public static function cleanSearchString($baseSearch)
     {
         // удалить все, кроме букв и цифр
@@ -150,15 +150,15 @@ class Product extends Model
                     array_push($wordsSearch, $word);
                 }
             }
-
-        } if (empty($wordsSearch)) {
-                return null;
+        }
+        if (empty($wordsSearch)) {
+            return null;
         } else {
             return array_unique($wordsSearch);
         }
     }
 
-
+//    очистка сессии
     public static function sessionForget($data)
     {
         foreach ($data as $key) {

@@ -5,15 +5,13 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Date;
-use function GuzzleHttp\Psr7\str;
 
 class UploadForm extends Model
 {
+//    объявление пути для сохранения картинок
     private static $dir = 'assets/far/img/';
 
-
+//    генерация названия
     public static function randomName($extension)
     {
         $name = md5(microtime() . rand(0, 1000));
@@ -21,6 +19,7 @@ class UploadForm extends Model
         return $file;
     }
 
+//    изменение размера изображения
     public static function reSize($path, $extension)
     {
         $imgProperty = getimagesize($path);
@@ -32,7 +31,7 @@ class UploadForm extends Model
         $wightNewImg = round($imgWight / $ratio);
         $heightNewImg = round($imgHeight / $ratio);
 
-        //cоздаем новое изображение заданных параметров
+        //создаем новое изображение заданных параметров
         $newImg = imagecreatetruecolor($wightNewImg, $heightNewImg);
         if ($extension === 'png') {
             $uploadImg = imagecreatefrompng($path);
@@ -52,16 +51,19 @@ class UploadForm extends Model
         imagedestroy($uploadImg);
     }
 
+//    составление пути для сохранения
     public static function getPath($type)
     {
         return static::$dir . $type . '/';
     }
 
+//    удалить изображение
     public static function dropImg($type, $file)
     {
         unlink(self::getPath($type) . $file);
     }
 
+//    переместить изображение
     public static function moveImg($type, $file)
     {
         $dateNowPath = self::getPath($type) . 'old/' . date('Y-m-d');
@@ -73,8 +75,9 @@ class UploadForm extends Model
         \Illuminate\Support\Facades\File::move($oldPath, $newPath);
     }
 
-    public static function upload($type, $request, $img = null) {
-//        dd($request);
+//        загрузка изображения
+    public static function upload($type, $request, $img = null)
+    {
         $dir = self::getPath($type);
 
         if ($request->has('oldImg')) {

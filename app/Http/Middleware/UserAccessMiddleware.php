@@ -11,13 +11,15 @@ class UserAccessMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
+
+//    разрешение доступа с части оформления заказа
     public function handle(Request $request, Closure $next)
     {
-        if(User::authenticationMiddleware('user')) {
+        if (User::authenticationMiddleware('user')) {
             return $next($request);
         }
         session()->forget('role');

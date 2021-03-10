@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use PharIo\Manifest\Exception;
 
 class User extends Authenticatable
 {
@@ -46,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+//    связь таблицы пользователей и токенов
     public function token()
     {
         return $this->hasOne(Token::class, 'user_id', 'id');
     }
 
-
+//    регистрация
     public static function registration($request)
     {
         $user = new User();
@@ -62,7 +59,7 @@ class User extends Authenticatable
         return $user;
     }
 
-
+//    заполнение атрибутов
     public static function writeAttributes($user, $request)
     {
         $user->email = $request->email;
@@ -72,13 +69,13 @@ class User extends Authenticatable
         return $user;
     }
 
-
+//    получение роли пользователя
     public static function getRole()
     {
         return Auth::user()->role ?? null;
     }
 
-
+//    запись в cache токена для осуществления функции remember_me
     public static function setRememberMeCache($remember = null)
     {
         $randomByteCache = bin2hex(random_bytes(24));
@@ -92,7 +89,7 @@ class User extends Authenticatable
         return $randomByteCache;
     }
 
-
+//    аутентификация
     public static function authentication($request, $user = null)
     {
         $remember = \request()->get('rememberMe') ?? null;
@@ -119,7 +116,7 @@ class User extends Authenticatable
         }
     }
 
-
+//    получение ip пользователя
     public static function getIp()
     {
         foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
@@ -135,7 +132,7 @@ class User extends Authenticatable
         return request()->ip(); // it will return server ip when no client ip found
     }
 
-
+//    запись атрибутов токена
     public static function writeToken($rememberMe, $userId, $newToken, $time, $token = null)
     {
         if (!$token) {
@@ -146,10 +143,6 @@ class User extends Authenticatable
         $token->token = $rememberMe;
         $token->expires_on = $time;
         $token->ip = self::getIp();
-//        $token->login_time = Carbon::now();
-//        $token->login_time = Carbon::parse(Carbon::now())->format('d.m.Y');
-//        $token->login_time = Carbon::createFromFormat('d/m/Y', Carbon::now());
-//        $token->login_time = Carbon::createFromFormat('d/m/Y', '12.12.12');
 
         if ($newToken = true) {
             $token->save();
@@ -159,10 +152,10 @@ class User extends Authenticatable
         return true;
     }
 
-
+//    аутентификация для доступа к страницам, защищенным middleware
     public static function authenticationMiddleware($role)
     {
-        $cacheKey= Cache::get('rememberMe');
+        $cacheKey = Cache::get('rememberMe');
         $user = self::getRole();
         $userId = Auth::id();
 
@@ -172,18 +165,18 @@ class User extends Authenticatable
             ->first();
 
         if ($cacheKey !== null && $user !== null && $userId !== null && $dbToken !== null) {
-        if (Auth::check()
-            && ($user === $role)
-            && Hash::check($cacheKey,  $dbToken->token)
-            && (Carbon::now() < $dbToken->expires_on)
-            && (self::getIp() === $dbToken->ip)) {
-            return true;
-        }
-        return false;
+            if (Auth::check()
+                && ($user === $role)
+                && Hash::check($cacheKey, $dbToken->token)
+                && (Carbon::now() < $dbToken->expires_on)
+                && (self::getIp() === $dbToken->ip)) {
+                return true;
+            }
+            return false;
         }
     }
 
-
+//    получение пользователя
     public static function getUser($id)
     {
         return self::query()

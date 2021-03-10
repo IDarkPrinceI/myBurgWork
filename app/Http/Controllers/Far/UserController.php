@@ -83,4 +83,6 @@ class UserController extends Controller
         }
         return [$labels, $res];
     }
+
+
 }

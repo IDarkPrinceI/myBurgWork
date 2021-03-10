@@ -10,17 +10,19 @@ class Category extends Model
 {
     use HasFactory;
 
-
+//    связь таблицы категории и продукты
     public function products()
     {
         return $this->hasMany(Product::class);
     }
 
+//    мутатор для записи slug
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value, '-');
     }
 
+//    сохранение категории (для админской части)
     public static function saveCategory($request, $file, $category = null)
     {
         if (!$category) {

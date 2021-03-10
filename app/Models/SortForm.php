@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SortForm extends Model
 {
-//    private static $asc = 'asc';
-//    private static $desc = 'desc';
-
+//    сортировка вывода списка продуктов
     public static function sort($sort, $query)
     {
         $direction = (\request()->get('direction') ?? session('direction'));

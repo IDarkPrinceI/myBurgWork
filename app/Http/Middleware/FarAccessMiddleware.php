@@ -12,14 +12,16 @@ class FarAccessMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
+
+//    разрешение доступа к админской части
     public function handle(Request $request, Closure $next)
     {
 
-        if(User::authenticationMiddleware('admin')) {
+        if (User::authenticationMiddleware('admin')) {
             return $next($request);
         }
         session()->forget('role');

@@ -7,9 +7,6 @@ use App\Http\Requests\FarCategoryRequest;
 use App\Models\BreadCrumbs;
 use App\Models\Category;
 use App\Models\UploadForm;
-use Illuminate\Support\Facades\Request;
-use League\Flysystem\Config;
-
 
 class CategoryController extends Controller
 {

@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Session;
 
 class Order extends Model
 {
+//    связь таблицы заказы и товары заказов
     public function getItems()
     {
         return $this->hasMany(OrderItem::class);
     }
 
-
+//    сохранить заказ
     public function saveOrder($request)
     {
         $this->qty = Session::get('cartQtySum');
@@ -25,13 +26,13 @@ class Order extends Model
         $this->phone = $request->phone;
         $this->address = $request->address;
         $this->user_id = Auth::id();
-        if(!$this->save()) {
+        if (!$this->save()) {
             return false;
         }
         return true;
     }
 
-
+//    найти заказ
     public static function findOrder($id)
     {
         $order = Order::query()
@@ -39,11 +40,10 @@ class Order extends Model
         return $order;
     }
 
-
+//    изменить статус заказа
     public function updateStatusOrder($status)
     {
         $this->status = $status;
         $this->save();
     }
-
 }

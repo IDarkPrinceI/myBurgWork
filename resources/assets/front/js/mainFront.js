@@ -8,6 +8,7 @@ $("body").on('click', ".singlePlus", function () {
         resultOn('plus', $(this))
     }
 )
+
 //Функция изменения количества твара, добавляемого в корзину
 function resultOn(typeButton, clickThis) {
     const result = $(clickThis).siblings(".singleResult")
@@ -16,26 +17,29 @@ function resultOn(typeButton, clickThis) {
     if (typeButton === 'plus' && resultVal < 10) {
         const qtyRez = 1
         resultVal += 1
-        if(overlay()) {
+        if (overlay()) {
             reCalc(qtyRez, resultVal, result)
         }
     }
     if (typeButton === 'minus' && resultVal > 1) {
         const qtyRez = -1
         resultVal -= 1
-        if(overlay()) {
+        if (overlay()) {
             reCalc(qtyRez, resultVal, result)
         }
     }
     result.text(resultVal)
 }
+
 //reCalcCart
 function reCalc(qtyRez, qty, result) {
     const slug = result.attr('data-slug')
     $.ajax({
         url: '/cartReCalc/' + qty,
-        data: {slug: slug,
-            qtyRez: qtyRez},
+        data: {
+            slug: slug,
+            qtyRez: qtyRez
+        },
         success: function () {
             // $("#upOrderForm").load(document.URL + ' #orderForm')
             $("#upOrderForm").load(document.URL + ' #upOrderForm')
@@ -49,9 +53,10 @@ function reCalc(qtyRez, qty, result) {
         }
     })
 }
+
 //Если страница оформления заказа
 function overlay() {
-    if(window.location.pathname.includes('/getOrder')) {
+    if (window.location.pathname.includes('/getOrder')) {
         $("#overlay").css({'display': 'block'})
         return true
     }
@@ -142,6 +147,7 @@ if (window.location.pathname.includes('/getOrder') || window.location.pathname.i
 $("#cartCheck").on('click', function () {
     showCart()
 })
+
 function showCart() {
     $("#modal-cart").fadeIn()
 }
@@ -150,6 +156,7 @@ function showCart() {
 $("body").on('click', ".cartClose", function () {
     hideCart()
 })
+
 function hideCart() {
     $("#modal-cart").fadeOut()
 }
@@ -166,7 +173,7 @@ function reloadCart() {
 $(".cartAdd").on('click', function (e) {
     e.preventDefault()
     const slug = $(this).attr('data-slug')
-    let qty = $("#singleResult").text()
+    let qty = $(".singleResult").text()
     if (qty === '') {
         qty = 1
     }
@@ -178,7 +185,7 @@ $(".cartAdd").on('click', function (e) {
             reloadCart()
             showCart()
             if (window.location.pathname.includes('/menu')) {
-                $("#singleResult").text(1)
+                $(".singleResult").text(1)
             }
         },
         error: function () {
@@ -186,9 +193,9 @@ $(".cartAdd").on('click', function (e) {
         }
     })
 })
+
 //clearCart
-$("#cartClean").on('click', function (e) {
-    e.preventDefault()
+function cartClean() {
     $.ajax({
         url: '/cartClear/',
         type: 'GET',
@@ -200,19 +207,23 @@ $("#cartClean").on('click', function (e) {
             alert('Ваша корзина пуста.')
         }
     })
-})
+}
 //cartDell
 $("body").on('click', ".del-item", function () {
     const slug = $(this).attr('data-slug')
     $.ajax({
         url: '/cartDell/' + slug,
         type: 'GET',
-        success: function () {
-            $("#upOrderForm").load(document.URL + ' #orderForm')
+        success: function (res) {
+
+            $("#upOrderForm").load(document.URL + ' #upOrderForm')
             setTimeout(function () {
                 $("#cartCheck").load(document.URL + ' #cartCheck')
             }, 50)
             reloadCart()
+            if (res.length === 0) {
+                $("#orderAttributes").addClass('d-none')
+            }
         },
         error: function () {
             alert('Ошибка удаления товара')
@@ -233,6 +244,8 @@ $("#modal-cart .modal-body").on('click', '.del-item', function (e) {
         }
     })
 })
+
+
 
 
 

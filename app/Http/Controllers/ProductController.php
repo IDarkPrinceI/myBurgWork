@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    //Меню
     public function menu()
     {
         $categories = Product::query()
-            ->join('categories', 'categories.id','=','products.category_id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('categories.*', 'categories.title as category_title', 'categories.slug as category_slug')
             ->selectRaw('COUNT(category_id) as countCategory')
             ->groupBy('category_id')
@@ -19,7 +18,7 @@ class ProductController extends Controller
         return view('front.products.menu', compact('categories'));
     }
 
-
+//    Просмотр товаров категории
     public function show($slug)
     {
         $products = Product::query()
@@ -31,13 +30,16 @@ class ProductController extends Controller
         return view('front.products.show', compact('products'));
     }
 
+//    Просмотр одного продукта
     public function single($category, $slug)
     {
         $product = Product::query()
             ->with('category')
             ->where('slug', '=', $slug)
             ->first();
+        //Добавляем один просмотр при открытии продукта
+        $product->view += 1;
+        $product->save();
         return view('front.products.single', compact('product'));
     }
-
 }
