@@ -1,6 +1,7 @@
 @extends('front.layouts.layout')
 
 @section('content')
+    {{--Страница входа--}}
 
     <div class="best_burgers_area">
         <div class="container" style="padding-top: 50px; width: 40%">
@@ -10,12 +11,15 @@
                         <span>Вход</span>
                     </div>
                 </div>
+                {{--Форма входа пользователя--}}
                 <div class="col-lg-12">
-                    <form class="form-contact contact_form" action="{{ route('login.authenticate') }}" method="post" id="loginForm">
+                    <form class="form-contact contact_form" action="{{ route('login.authenticate') }}" method="post"
+                          id="loginForm">
                         @csrf
-                        <div class="row" style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: #f4f5f6" >
-
-                            <div class="col-sm-8" >
+                        <div class="row"
+                             style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: #f4f5f6">
+                            {{--Email--}}
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <input class="form-control"
                                            name="email"
@@ -26,8 +30,9 @@
                                            style="font-size: medium; color: #f4f5f6; @error('email') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
-
-                            <div class="col-sm-8" >
+                            {{--/Email--}}
+                            {{--Пароль--}}
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <input class="form-control"
                                            name="password"
@@ -37,26 +42,25 @@
                                            style="font-size: medium; color: #f4f5f6; @error('password') border-color: #ee0d0d!important; @enderror">
                                 </div>
                             </div>
+                            {{--/Пароль--}}
+                            {{--Запомнить меня--}}
                             <div class="switch-wrap d-flex justify-content-between">
                                 <p style="color: #f4f5f6">Запомнить меня </p>
                                 <div class="primary-checkbox" style="margin-left: 10px">
                                     <input type="checkbox"
                                            name="rememberMe"
-                                           id="rememberMe"
-{{--                                           checked--}}
-                                           >
+                                           id="rememberMe">
                                     <label for="rememberMe"></label>
                                 </div>
                             </div>
-
+                            {{--/Запомнить меня--}}
                             <div class="form-group mt-3">
                                 <button type="submit" class="button button-contactForm boxed-btn">Войти</button>
                             </div>
-
                         </div>
-
                     </form>
                 </div>
+                {{--/Форма входа пользователя--}}
             </div>
         </div>
     </div>

@@ -1,37 +1,39 @@
 @extends('far.layouts.layout')
 
 @section('content')
+    {{--Страница редактирования пользователя--}}
 
     <section class="content">
         <div class="card">
             <div class="card-body" style="display: flex; flex-direction: row; justify-content: space-between">
                 @if ($user)
-                    {{--editForm--}}
+                    {{--Форма редактирования--}}
                     <form role="form" method="post" action="{{ route('statistic.user.update', ['id' => $user->id]) }}">
                         @csrf
                         @method('POST')
                         <div class="col-md-12" style="min-width: 450px">
-                            {{--role--}}
+                            {{--Роль--}}
                             <div class="form-group">
                                 <label for="role">Роль</label>
                                 <select name="role"
                                         id="role"
                                         class="form-control @error('role') is-invalid @enderror">
-                                        <option
-                                            @if($user->role === 'admin')
-                                            selected
-                                            @endif>
-                                            admin
-                                        </option>
-                                        <option
-                                            @if($user->role === 'user')
-                                            selected
-                                            @endif>
-                                            user
-                                        </option>
+                                    <option
+                                        @if($user->role === 'admin')
+                                        selected
+                                        @endif>
+                                        admin
+                                    </option>
+                                    <option
+                                        @if($user->role === 'user')
+                                        selected
+                                        @endif>
+                                        user
+                                    </option>
                                 </select>
                             </div>
-                            {{--email--}}
+                            {{--/Роль--}}
+                            {{--Email--}}
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input name="email"
@@ -41,7 +43,8 @@
                                        class="form-control @error('email') is-invalid @enderror" placeholder="..."
                                        value="{{ $user->email }}">
                             </div>
-                            {{--name--}}
+                            {{--/Email--}}
+                            {{--Имя--}}
                             <div class="form-group">
                                 <label for="name">Имя</label>
                                 <input name="name"
@@ -51,7 +54,8 @@
                                        class="form-control @error('name') is-invalid @enderror" placeholder="..."
                                        value="{{ $user->name }}">
                             </div>
-                            {{--phone--}}
+                            {{--/Имя--}}
+                            {{--Телефон--}}
                             <div class="form-group">
                                 <label for="phone">Телефон</label>
                                 <input name="phone"
@@ -61,7 +65,8 @@
                                        class="form-control @error('phone') is-invalid @enderror" placeholder="..."
                                        value="{{ $user->phone }}">
                             </div>
-                            {{--address--}}
+                            {{--/Телефон--}}
+                            {{--Адрес--}}
                             <div class="form-group">
                                 <label for="address">Адрес</label>
                                 <textarea name="address"
@@ -69,13 +74,14 @@
                                           class="form-control" rows="3"
                                           @if ($user->role !=='admin') readonly @endif
                                           placeholder="..."
-                                >{{ $user->address }}</textarea>
+                                >{{ $user->address }}
+                                </textarea>
                             </div>
-                            {{--saveButton--}}
+                            {{--/Адрес--}}
                             <button type="submit" class="btn btn-block bg-gradient-success btn-sm">Сохранить</button>
                         </div>
                     </form>
-                    {{--//editForm--}}
+                    {{--/Форма редактирования--}}
                     <div class="col-md-6" style="width: 50%; height: 400px; padding: 0.5em" id="map"></div>
             </div>
             @else
@@ -83,4 +89,5 @@
             @endif
         </div>
     </section>
+
 @endsection

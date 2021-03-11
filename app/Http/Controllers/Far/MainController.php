@@ -7,11 +7,10 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
+//    Главная страница админки
     public function index()
     {
         $categories = Category::query()
@@ -22,10 +21,9 @@ class MainController extends Controller
         $orders = Order::query()
             ->count();
         $ordersInWork = Order::query()
-            ->where('status', '=',0)
+            ->where('status', '=', 0)
             ->count();
         $users = User::query()
-//            ->where('role', '=', 'user')
             ->count();
         return view('far.index', compact('categories', 'products', 'orders', 'ordersInWork', 'users'));
     }

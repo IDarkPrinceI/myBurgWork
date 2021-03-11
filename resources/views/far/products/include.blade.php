@@ -1,54 +1,56 @@
 <div id="includeIndex">
+
     @if(gettype($products) == 'string')
-    <div class="card mt-5">
-        <div class="container">
-            <div><h4>{{$products}}</h4></div>
+        <div class="card mt-5">
+            <div class="container">
+                <div><h4>{{ $products }}</h4></div>
+            </div>
         </div>
-    </div>
+
     @elseif ( count($products) !== 0)
         <div class="card mt-2">
-            <!-- /.card-header -->
             <div class="card-body p-0">
                 <table id="tableIndex" class="table">
                     <thead>
                     <tr id="head">
                         <th style="width: 10px">
-                            <a href="{{ route('products.index') }}" class="text-dark" >#
+                            <a href="{{ route('products.index') }}" class="text-dark">#
                             </a>
                         </th>
+                        {{--                        Виджеты для формирования сортировки--}}
                         <th>
                             @widget('make_route', ['routeName' => 'Название',
-                                                    'typeSort' => 'title'])
+                            'typeSort' => 'title'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Категория',
-                                                    'typeSort' => 'category_title'])
+                            'typeSort' => 'category_title'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Цена',
-                                                    'typeSort' => 'price'])
+                            'typeSort' => 'price'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Старая цена',
-                                                    'typeSort' => 'old_price'])
+                            'typeSort' => 'old_price'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Новинка',
-                                                    'typeSort' => 'is_new'])
+                            'typeSort' => 'is_new'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Хит',
-                                                    'typeSort' => 'is_hit'])
+                            'typeSort' => 'is_hit'])
                         </th>
                         <th>
                             @widget('make_route', ['routeName' => 'Просмотры',
-                                                    'typeSort' => 'view'])
+                            'typeSort' => 'view'])
                         </th>
                         <th>Картинка</th>
                     </tr>
                     </thead>
                     <tbody>
-@php $i = request('page') ? (5 * (request('page') - 1)) + 1 : 1 @endphp
+                    @php $i = request('page') ? (5 * (request('page') - 1)) + 1 : 1 @endphp
                     @foreach($products as $product)
                         <tr>
                             <td>{{ $i }}</td>
@@ -75,7 +77,7 @@
                                             @else
                                             data-img="0"
                                             @endif
-                                            data-id="{{$product->id}}"
+                                            data-id="{{ $product->id }}"
                                             data-toggle="modal"
                                             data-target="#modal-danger">
                                         <i data-id="{{$product->id}}"
@@ -94,7 +96,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- /.card-body -->
         </div>
         @if(session()->has('typeSort'))
             {{ $products->appends(['sort' => session()->get('typeSort')])->links('vendor.pagination.bootstrap-4') }}

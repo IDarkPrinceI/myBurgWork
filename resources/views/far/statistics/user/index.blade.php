@@ -1,8 +1,10 @@
 @extends('far.layouts.layout')
 
 @section('content')
+    {{--Страница вывода статистики пользователей--}}
 
     <section id="index" class="content">
+        {{--Флеш сообщение о успехе--}}
         <div class="sessionFlash">
             @if ( session()->has('success-dell') )
                 <div class="alert alert-success alert-dismissible">
@@ -12,12 +14,14 @@
                 </div>
             @endif
         </div>
-{{--userIndex--}}
+        {{--/Флеш сообщение о успехе--}}
+        {{--Вывод списка пользователй--}}
         @if ( count($users) !== 0)
             <div class="card mt-2">
                 <div class="card-body p-0">
                     <table id="tableIndex" class="table">
                         <thead>
+                        {{--Заголовки--}}
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Email</th>
@@ -28,7 +32,9 @@
                             <th>Зарегистрирован</th>
                             <th>Действия</th>
                         </tr>
+                        {{--/Заголовки--}}
                         </thead>
+                        {{--Вывод данных пользователей--}}
                         <tbody>
                         @php $i = $_SERVER['QUERY_STRING'] ? (5 * (substr($_SERVER['QUERY_STRING'], 5) - 1) ) + 1 : 1 @endphp
                         @foreach($users as $user)
@@ -42,7 +48,12 @@
                                 <td>{{ $user->created_at }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('statistic.user.edit', ['id' => $user['id']]) }}" class="btn btn-warning mr-1 rounded-right"><i class="fas fa-pen"></i></a>
+                                        {{--Редактировать--}}
+                                        <a href="{{ route('statistic.user.edit', ['id' => $user['id']]) }}"
+                                           class="btn btn-warning mr-1 rounded-right"><i class="fas fa-pen"></i>
+                                        </a>
+                                        {{--/Редактировать--}}
+                                        {{--Удалить--}}
                                         <button href="{{ route('statistic.user.dell', ['id' => $user['id']]) }}"
                                                 class="btn btn-danger mr-1 rounded-left rounded-right"
                                                 data-id="{{ $user->id }}"
@@ -50,12 +61,14 @@
                                                 data-target="#modal-danger">
                                             <i data-id="{{$user->id}}" class="fas fa-trash"></i>
                                         </button>
+                                        {{--/Удалить--}}
                                     </div>
                                 </td>
                             </tr>
                             @php $i++ @endphp
                         @endforeach
                         </tbody>
+                        {{--/Вывод данных пользователей--}}
                     </table>
                 </div>
             </div>
@@ -67,9 +80,9 @@
                 </div>
             </div>
         @endif
-
+        {{--/Вывод списка пользователй--}}
     </section>
-
+    {{--Модальное окно удаления пользователя--}}
     <div class="modal" id="modal-danger" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-danger">
@@ -90,12 +103,13 @@
                         <button id="onDellUser" type="submit" class="btn btn-outline-light">Подтвердить удаление
                         </button>
                     </form>
-                    <button  class="btn btn-outline-light bg-gradient-success" data-dismiss="modal" type="button">
+                    <button class="btn btn-outline-light bg-gradient-success" data-dismiss="modal" type="button">
                         Отмена
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    {{--/Модальное окно удаления пользователя--}}
 
 @endsection

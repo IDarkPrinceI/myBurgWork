@@ -1,6 +1,7 @@
 @extends('front.layouts.layout')
 
 @section('content')
+{{--Страница просмотра товаров категории--}}
 
     <div class="best_burgers_area">
         <div class="container">
@@ -11,8 +12,8 @@
                     </div>
                 </div>
             </div>
+            {{--Вывод товаров категории --}}
             <div class="row" style="background-color: rgba(230,230,230, .3); border-radius: 5%; padding-top: 30px;">
-                {{--                Вывод товаров категории --}}
                 @foreach($products as $product)
                     <div class="col-xl-6 col-md-6 col-lg-6" style="opacity: 100%">
                         <div class="single_delicious d-flex align-items-center">
@@ -29,7 +30,7 @@
                             </div>
                             <div class="info">
                                 <h3 style="min-height: 72px"><a
-                                        href="{{ route('menu.single', ['category' => $product->category_slug, 'slug' => $product->slug]) }}">{{$product->title}}</a>
+                                        href="{{ route('menu.single', ['category' => $product->category_slug, 'slug' => $product->slug]) }}">{{ $product->title }}</a>
                                 </h3>
                                 <span style="display: inline; margin-right: 30px; color: whitesmoke; font-size: 20px">{{ $product->price }} руб</span>
                                 @if ($product->old_price)
@@ -49,10 +50,13 @@
                     </div>
                 @endforeach
             </div>
+            {{--Вывод товаров категории --}}
+            {{--Пагинация--}}
             <div style="opacity: 0.7; margin-left: auto;
                 margin-right: auto; width: 6em; padding-top: 55px">
                 {{ $products->links('vendor.pagination.bootstrap-4') }}
             </div>
+            {{--/Пагинация--}}
         </div>
     </div>
 

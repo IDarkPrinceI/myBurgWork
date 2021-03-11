@@ -20,7 +20,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?apikey=8a3ecadb-e4ca-48eb-9d4e-cbc2af213efb&amp;lang=ru-RU"></script>
     {{--    YandexMap--}}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-{{--    Стили AdminLte--}}
+    {{--Стили AdminLte--}}
     <link rel="stylesheet" href="{{ asset('assets/far/css/far.css') }}">
 </head>
 <body class="sidebar-mini layout-fixed" style="margin-bottom: 29px; height: auto;">

@@ -102,7 +102,7 @@
                                            @if( $order->status == 1 )
                                            value="1"
                                            checked
-                                           @endif>
+                                        @endif>
                                     <label class="custom-control-label" for="status">
                                         @if($order->status == 1)
                                             Завершен

@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
+//    Страница логирования
     public function login()
     {
         return view('user.login');
     }
 
-
+//    Аутентификация
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -33,13 +33,13 @@ class UserController extends Controller
         ]);
     }
 
-
+//    Страница регистрации
     public function create()
     {
         return view('user.register');
     }
 
-
+//    Регистрация
     public function store(UserRegistrationRequest $request)
     {
         $user = User::registration($request);
@@ -51,7 +51,7 @@ class UserController extends Controller
         return redirect()->route('index');
     }
 
-
+//    Разлогирование
     public function logout(Request $request)
     {
         Auth::logout();

@@ -1,6 +1,7 @@
 @extends('far.layouts.layout')
 
 @section('content')
+    {{--Главная страница админки--}}
 
     <section class="content">
         <div class="card">
@@ -9,7 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-{{--categories--}}
+                    {{--Категории--}}
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -24,7 +25,8 @@
                             </a>
                         </div>
                     </div>
-{{--products--}}
+                    {{--/Категории--}}
+                    {{--Продукты--}}
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-success">
                             <div class="inner">
@@ -39,7 +41,8 @@
                             </a>
                         </div>
                     </div>
-{{--orders--}}
+                    {{--/Продукты--}}
+                    {{--Заказы--}}
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-danger">
                             <div class="inner">
@@ -54,7 +57,8 @@
                             </a>
                         </div>
                     </div>
-{{--users--}}
+                    {{--/Заказы--}}
+                    {{--Пользователи--}}
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-warning">
                             <div class="inner">
@@ -69,7 +73,7 @@
                             </a>
                         </div>
                     </div>
-
+                    {{--/Пользователи--}}
                 </div>
             </div>
             <div class="card-footer">
@@ -77,7 +81,6 @@
             </div>
         </div>
     </section>
-
 
 @endsection
 

@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/front/img/favicon.png') }}">
 
-    {{--    YandexMap--}}
+    {{--YandexMap--}}
     <script src="https://api-maps.yandex.ru/2.1/?apikey=8a3ecadb-e4ca-48eb-9d4e-cbc2af213efb&amp;lang=ru-RU"></script>
-{{--    YandexMap--}}
-<!-- CSS here -->
+    {{--/YandexMap--}}
+    {{--CSS--}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/front.css') }}">
+    {{--/CSS--}}
 </head>
-
 <body>
 <header>
     <div class="header-area ">
@@ -24,6 +24,7 @@
                 <div class="row align-items-center no-gutters" style="background-color: #0b0b0b; height: 150px">
                     <div class="col-xl-5 col-lg-5">
                         <div class="main-menu  d-none d-lg-block">
+                            {{--Навигация--}}
                             <nav>
                                 <ul id="navigation" style="padding: 50px">
                                     <li><a class="active" href="{{ route('index') }}">Главная</a></li>
@@ -31,6 +32,7 @@
                                     <li><a href="about.html">About</a></li>
                                 </ul>
                             </nav>
+                            {{--/Навигация--}}
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-2">
@@ -44,17 +46,21 @@
                         <div class="book_room" style="padding: 50px">
                             <div class="socail_links">
                                 <ul>
+                                    {{--Состояние корзины--}}
                                     <li>
-                                        {{--cartCheck--}}
                                         <a id="cartCheck" style="cursor: pointer">
                                             <i class="fa fa-cart-arrow-down" aria-hidden="true">
-                                                <span class="cart-qty" id="cart-qty">{{ session('cartQtySum') ?? '0'}} </span><span> шт. на сумму:</span>
-                                                <span class="cart-sum" id="cart-sum">{{ session('cartTotalPrice') ?? '0' }} </span><span> руб.</span>
+                                                <span class="cart-qty"
+                                                      id="cart-qty">{{ session('cartQtySum') ?? '0'}} </span><span> шт. на сумму:</span>
+                                                <span class="cart-sum"
+                                                      id="cart-sum">{{ session('cartTotalPrice') ?? '0' }} </span><span> руб.</span>
                                             </i>
                                         </a>
                                     </li>
-                                    {{--userMenu--}}
+                                    {{--/Состояние корзины--}}
+                                    {{--Виджет управления пользователем--}}
                                     @widget('login_link_widget', ['userRole' => session('role') ?? 'guest'])
+                                    {{--/Виджет управления пользователем--}}
                                 </ul>
                             </div>
                         </div>
@@ -66,15 +72,14 @@
 </header>
 {{--Флешсообщения--}}
 @include('front.layouts.alert')
-{{--Content--}}
+{{--Контент--}}
 @yield('content')
-<!-- modalCart -->
+{{--Модальная корзина--}}
 <div class="modal" id="modal-cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 750px;">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Моя корзина</h4>
-
                 <button type="button" class="close cartClose" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
@@ -85,13 +90,12 @@
         </div>
     </div>
 </div>
-<!-- modalCart -->
+{{--/Модальная корзина--}}
 <footer class="footer">
-    {{--    footer--}}
+    {{--Футер--}}
 </footer>
 
-
-<!-- JS here -->
+{{--JS--}}
 <script src={{ asset('assets/front/js/front.js') }}></script>
 <script src={{ asset('assets/front/js/mainFront.js') }}></script>
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+//    Список заказов
     public function index()
     {
         BreadCrumbs::breadCrumbs('index', 'Список заказов', 'orders.index');
@@ -17,10 +18,10 @@ class OrderController extends Controller
         $orders = Order::query()
             ->orderBy('status')
             ->paginate(5);
-        return view('far.orders.index', compact('orders') );
+        return view('far.orders.index', compact('orders'));
     }
 
-
+//    Просмотр заказа
     public function show($id)
     {
         $order = Order::findOrder($id);
@@ -29,10 +30,10 @@ class OrderController extends Controller
         $orderItems = OrderItem::query()
             ->where('order_id', '=', $id)
             ->get();
-        return view('far.orders.show', compact('order', 'orderItems') );
+        return view('far.orders.show', compact('order', 'orderItems'));
     }
 
-
+//    Изменение статуса заказа
     public function update($id, Request $request)
     {
         $order = Order::findOrder($id);

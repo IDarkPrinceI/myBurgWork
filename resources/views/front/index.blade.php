@@ -1,6 +1,7 @@
 @extends('front.layouts.layout')
 
 @section('content')
+{{--Главная страница пользовательской части--}}
     <div class="best_burgers_area">
         <div class="container">
             <div class="row">
@@ -11,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            {{--            Вывод самых популярных продуктов (по просмотрам)--}}
+            {{--Вывод самых популярных продуктов (по просмотрам)--}}
             <div class="row" style="background-color: rgba(230,230,230, .3); border-radius: 5%; padding-top: 30px;">
                 @foreach($products as $product)
                     <div class="col-xl-6 col-md-6 col-lg-6" style="opacity: 100%">
@@ -50,7 +51,8 @@
                     </div>
                 @endforeach
             </div>
-            {{--            Меню--}}
+            {{--/Вывод самых популярных продуктов (по просмотрам)--}}
+            {{--Меню--}}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="iteam_links">
@@ -62,6 +64,7 @@
                     </div>
                 </div>
             </div>
+            {{--/Меню--}}
         </div>
     </div>
 

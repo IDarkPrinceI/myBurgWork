@@ -1,12 +1,13 @@
 @extends('front.layouts.layout')
 
 @section('content')
+    {{--Страница меню--}}
 
     <div class="Burger_President_area best_burgers_area" style="padding: 150px; ">
         <div class="section_title text-center mb-80">
             <span>Burger Menu</span>
         </div>
-        {{--        Вывод меню по категориям--}}
+        {{--Вывод меню по категориям--}}
         <div style="background-color: white;" class="Burger_President_here">
             @foreach($categories as $category)
                 <div class="single_Burger_President">
@@ -32,5 +33,7 @@ display: inline">{{ $category->countCategory }}</span>
                 </div>
             @endforeach
         </div>
+        {{--/Вывод меню по категориям--}}
     </div>
+
 @endsection

@@ -1,4 +1,4 @@
-
+{{--Виджет вывода пагинации--}}
 @if(session()->has('typeSort'))
     {{ $config['products']->appends(['sort' => session()->get('typeSort')])->links('vendor.pagination.bootstrap-4') }}
 @elseif(session()->has('search'))

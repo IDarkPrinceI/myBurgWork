@@ -10,7 +10,7 @@ use App\Models\UploadForm;
 
 class CategoryController extends Controller
 {
-
+//    Просмотр категорий
     public function index()
     {
         BreadCrumbs::breadCrumbs('index', 'Список категорий', 'categories.index');
@@ -21,7 +21,7 @@ class CategoryController extends Controller
         return view('far.categories.index', compact('categories'));
     }
 
-
+//    Страница добавления категории
     public function create()
     {
         BreadCrumbs::breadCrumbs('create', 'Добавление категории');
@@ -29,7 +29,7 @@ class CategoryController extends Controller
         return view('far.categories.create');
     }
 
-
+//    Добавить категорию
     public function store(FarCategoryRequest $request)
     {
         $file = UploadForm::upload('category', $request);
@@ -40,16 +40,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success', "Категория '$category->title' добавлена");
     }
 
-
-    public function show($id)
-    {
-        $category = Category::query()
-            ->findOrFail($id);
-        return view('far.categories.test', compact('category'));
-
-    }
-
-
+//    Страница редактирования категории
     public function edit($id)
     {
         $category = Category::query()
@@ -59,7 +50,7 @@ class CategoryController extends Controller
         return view('far.categories.edit', compact('category'));
     }
 
-
+//    Обновить категорию
     public function update(FarCategoryRequest $request, $id)
     {
         $category = Category::query()
@@ -73,7 +64,7 @@ class CategoryController extends Controller
 
     }
 
-
+//    Удалить категорию
     public function destroy($id)
     {
         $img = request()->get('img');

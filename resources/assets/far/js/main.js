@@ -177,7 +177,7 @@ $(".content-wrapper").on('click', function () {
                 $(".buttonAdd")
             ])
         }
-    } else if (location === "/far/categories/create") {
+    } else if (location.includes("categories") ) {
         if ($("#title").val()) {
             pack = [
                 $(".descriptionInput"),
@@ -278,10 +278,3 @@ $(function() {
 $(function() {
     $("#datePickerFinish").datepicker($.datepicker.regional["ru"]);
 });
-
-
-
-
-
-
-
