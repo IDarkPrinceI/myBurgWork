@@ -14,17 +14,30 @@ class MainController extends Controller
     public function index()
     {
         $categories = Category::query()
-            ->with('category')
             ->count();
         $products = Product::query()
             ->count();
         $orders = Order::query()
-            ->count();
-        $ordersInWork = Order::query()
-            ->where('status', '=', 0)
-            ->count();
+            ->selectRaw('COUNT(status) as count')
+            ->groupBy('status')
+            ->get();
         $users = User::query()
             ->count();
-        return view('far.index', compact('categories', 'products', 'orders', 'ordersInWork', 'users'));
+        return view('far.index', compact('categories', 'products', 'orders', 'users'));
+    }
+
+    //    хлебные крошки для админской части
+    public function breadCrumbs($route, $level, $levelOneRoute = null)
+    {
+        if ($route === 'index') {
+            session(['backRoute' => $_SERVER['REQUEST_URI'],
+                'levelOne' => $level,
+                'levelOneRoute' => $levelOneRoute ?? session('levelOneRoute'),
+                'levelTwo' => null],
+            );
+        }
+        if ($route === 'create' || $route === 'edit' || $route === 'show') {
+            session(['levelTwo' => $level]);
+        }
     }
 }

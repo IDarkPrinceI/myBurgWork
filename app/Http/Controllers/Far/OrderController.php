@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Far;
 
-use App\Http\Controllers\Controller;
-use App\Models\BreadCrumbs;
+use App\Http\Controllers\Far\MainController;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class OrderController extends MainController
 {
 //    Список заказов
     public function index()
     {
-        BreadCrumbs::breadCrumbs('index', 'Список заказов', 'orders.index');
+        $this->breadCrumbs('index', 'Список заказов', 'orders.index');
 
         $orders = Order::query()
             ->orderBy('status')
@@ -25,7 +24,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::findOrder($id);
-        BreadCrumbs::breadCrumbs('show', "Просмотр заказа № $order->id");
+        $this->breadCrumbs('show', "Просмотр заказа № $order->id");
 
         $orderItems = OrderItem::query()
             ->where('order_id', '=', $id)

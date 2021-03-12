@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Far;
 
-use App\Http\Controllers\Controller;
-use App\Models\BreadCrumbs;
+use App\Http\Controllers\Far\MainController;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Statistic;
@@ -11,12 +10,12 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends MainController
 {
     //страница список пользователей
     public function index()
     {
-        BreadCrumbs::breadCrumbs('index', 'Список пользователей', 'statistic.users');
+        $this->breadCrumbs('index', 'Список пользователей', 'statistic.users');
 
         $users = User::query()
             ->paginate(5);
@@ -26,7 +25,7 @@ class UserController extends Controller
     //страница обновление пользователя
     public function edit($id)
     {
-        BreadCrumbs::breadCrumbs('edit', 'Редактирование');
+        $this->breadCrumbs('edit', 'Редактирование');
         $user = User::getUser($id);
 
         return view('far.statistics.user.edit', compact('user'));
@@ -63,6 +62,7 @@ class UserController extends Controller
     //страница уникальных пользователей
     public function datePick()
     {
+        $this->breadCrumbs('index', 'Построение графика');
         return view('far.statistics.user.datePick');
     }
 

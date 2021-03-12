@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Far;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Far\MainController;
 use App\Http\Requests\FarProductRequest;
-use App\Models\BreadCrumbs;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SortForm;
 use App\Models\UploadForm;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends MainController
 {
 //    Просмотр списка продуктов
     public function index()
     {
-        BreadCrumbs::breadCrumbs('index', 'Список продуктов', 'products.index');
+        $this->breadCrumbs('index', 'Список продуктов', 'products.index');
 
         $query = Product::query();
         $sort = \request()->get('sort');
@@ -32,7 +31,7 @@ class ProductController extends Controller
 //   Страница добавление товара
     public function create()
     {
-        BreadCrumbs::breadCrumbs('create', 'Добавление товара');
+        $this->breadCrumbs('create', 'Добавление товара');
         $categories = Category::query()
             ->get();
 
@@ -54,7 +53,7 @@ class ProductController extends Controller
     {
         $product = Product::query()
             ->findOrFail($id);
-        BreadCrumbs::breadCrumbs('show', $product->title);
+        $this->breadCrumbs('show', $product->title);
 
         return view('far.products.show', compact('product'));
     }
@@ -64,7 +63,7 @@ class ProductController extends Controller
     {
         $product = Product::query()
             ->findOrFail($id);
-        BreadCrumbs::breadCrumbs('edit', "Редактирование: $product->title");
+        $this->breadCrumbs('edit', "Редактирование: $product->title");
         $categories = Category::query()
             ->get()
             ->all();

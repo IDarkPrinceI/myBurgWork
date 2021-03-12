@@ -154,7 +154,7 @@ $(document).ready(function() {
 $(".content-wrapper").on('click', function () {
     const location = window.location.pathname
     let pack = []
-    if (location === "/far/products/create") {
+    if (location.includes("products") ) {
         if ($("#title").val()) {
             $(".categoryInput").fadeIn()
         }

@@ -34,7 +34,10 @@ class Statistic extends Model
     public static function countUsers($res, $date)
     {
         $users = Statistic::query()
+            ->join('users', 'users.email', '=','statistics.email')
+            ->select('statistics.*', 'users.role')
             ->where('date', '=', $date)
+            ->where('users.role', '=', 'user')
             ->count();
         array_push($res, $users);
         return $res;

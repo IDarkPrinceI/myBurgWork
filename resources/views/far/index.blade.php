@@ -46,8 +46,8 @@
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{ $orders }}</h3>
-                                <p>В работе: {{ $ordersInWork }} </p>
+                                <h3>{{ $orders[0]['count'] + $orders[1]['count'] }}</h3>
+                                <p>В работе: {{ $orders[0]['count'] }} </p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-leaf nav-icon"></i>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                Footer
+                {{--Footer--}}
             </div>
         </div>
     </section>
